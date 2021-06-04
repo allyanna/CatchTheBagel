@@ -1,7 +1,7 @@
 ﻿
 namespace View
 {
-    partial class view
+    partial class View
     {
         /// <summary>
         /// Required designer variable.

@@ -13,13 +13,13 @@ namespace CatchTheBagel
 
         // TODO:: ADD needed variables here
         private int livesLeft;
-        private int powerups;
+        private int PointBooster;
 
 
         public Controller()
         {
             livesLeft = 3;
-            powerups = 0;
+            PointBooster = 0;
         }
 
         /// <summary>
@@ -35,17 +35,17 @@ namespace CatchTheBagel
         /// Gets the life of the player
         /// </summary>
         /// <returns></returns>
-        public int getLife()
+        public int GetLife()
         {
             return livesLeft;
         }
 
         /// <summary>
-        /// Adds a powerup the player can use
+        /// Adds a point booster powerup the player can use
         /// </summary>
-        public void addPower()
+        public void AddPointBooster()
         {
-            powerups = powerups + 1;
+            PointBooster = PointBooster + 1;
         }
 
 

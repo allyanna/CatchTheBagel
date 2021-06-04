@@ -71,9 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
-    <Content Include="Sprites\bagel.png" />
-    <Content Include="Sprites\lifeBooster.png" />
-    <Content Include="Sprites\pointBooster.png" />
+    <Content Include="Sprites\Bagel.png" />
+    <Content Include="Sprites\LifeBooster.png" />
+    <Content Include="Sprites\PointBooster.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
