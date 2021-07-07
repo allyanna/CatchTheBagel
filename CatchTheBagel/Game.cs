@@ -22,6 +22,7 @@ namespace CatchTheBagel
         private int IDLBooster;
         private int IDBagel;
 
+        Random rng = new Random();
 
         //keeps track of the various things that need to be drawn
         public Dictionary<int, PointBooster> AllPBoosters { get; set; }
@@ -29,6 +30,8 @@ namespace CatchTheBagel
         public Dictionary<int, LifeBooster> AllLBoosters { get; set; }
         //TODO: bad boost
 
+
+        private Player player;
 
         public Game()
         {
@@ -47,9 +50,19 @@ namespace CatchTheBagel
             AllLBoosters = new Dictionary<int, LifeBooster>();
 
 
-           
+
+            player = new Player(0, 0, 700); //TODO: need to move it
+
         }
 
+        /// <summary>
+        /// Returns the player
+        /// </summary>
+        /// <returns></returns>
+        public Player GetPlayer()
+        {
+            return player;
+        }
         //TODO:: what components does a game have?
         //it must keep track of everything just like how we did in the 
         //tankwars controller?? hmm we'll have to sketch this out or something
@@ -110,5 +123,39 @@ namespace CatchTheBagel
         {
             CurrentPoints = CurrentPoints + (pAmount); //TODO:: do we check here or something ugh
         }
+
+        //**********************************making changes to the dictionaries*******************************//
+        /// <summary>
+        /// Adds bagels in the bagel when needed
+        /// </summary>
+        public void AddBagel()
+        {
+            int randX = rng.Next(20, 840);
+            int check = rng.Next(10);
+
+            if (check % 2 == 0)
+            {
+                AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
+                this.IDBagel++;
+            }
+        }
+
+        /// <summary>
+        /// Moves the player when the arrow keys are moving it
+        /// </summary>
+        public void MovePlayer(string movement)
+        {
+            int x = player.GetPointX();
+
+            lock (player)
+            {
+                if (movement == "left" && x > 0)
+                    player.SetPointX(x - 1);
+                else if (movement == "right" && x < 825)
+                    player.SetPointX(x + 1); ;
+            }
+        }
+
+
     }
 }

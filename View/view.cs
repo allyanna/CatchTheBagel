@@ -19,7 +19,10 @@ namespace View
         GamePanel gamePanel;
 
         // Tracks when to move positions and repaint items
-        Timer time = new Timer(); //See if it works
+        Timer time = new Timer();
+
+        // Creates a smoother transition to updating
+        Timer updatePage = new Timer();
 
         public View()
         {
@@ -37,7 +40,7 @@ namespace View
             gamePanel = new GamePanel(game);
             gamePanel.Location = new Point(0, 22); //TO mess with later
             gamePanel.Size = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
-            gamePanel.BackColor = Color.Pink;
+            gamePanel.BackColor = Color.FromArgb(242, 197, 61);
             this.Controls.Add(gamePanel);
             this.Text = "Catch the Bagel";
 
@@ -46,14 +49,36 @@ namespace View
             gamePanel.MouseClick += MouseClickedHandler;
 
             //handles the intervals of movements needed
-            time.Interval = 1000;
+            time.Interval = 3000;
             time.Start();
             time.Tick += TimerTick;
 
-            game.AllBagels.Add(0, new Bagel(0, 200, 100));
-            game.AllBagels.Add(1, new Bagel(1, 300, 50));
-            game.AllBagels.Add(2, new Bagel(2, 400, 0));
 
+            //update the page
+            updatePage.Interval = 10;
+            updatePage.Start();
+            updatePage.Tick += TimerUpdate;
+
+        }
+
+        /// <summary>
+        /// Updates everything
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TimerUpdate(object sender, EventArgs e)
+        {
+
+            //keep moving the items
+            lock (game.AllBagels)
+            {
+                foreach (Bagel b in game.AllBagels.Values)
+                {
+                    b.SetPointY(b.GetPointY() + 1); //TODO: do i need to put this in the game?
+                    Bagel s = b;
+                }
+            }
+            gamePanel.Invalidate(); //redraws the panel
         }
 
         /// <summary>
@@ -67,16 +92,9 @@ namespace View
             time.Stop();
             time.Start();
 
-            //keep moving the items
-            lock (game.AllBagels)
-            {
-                foreach (Bagel b in game.AllBagels.Values)
-                {
-                    b.SetPointY(b.GetPointY() + 25);
-                    Bagel s = b;
-                }
-            }
-            gamePanel.Invalidate(); //redraws the panel
+            // decides whether to add a bagel
+            game.AddBagel();
+
         }
 
         /// <summary>
@@ -86,6 +104,13 @@ namespace View
         /// <param name="e"></param>
         private void KeyDownPressed(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Left)
+                game.MovePlayer("left");
+
+            if (e.KeyCode == Keys.Right)
+                game.MovePlayer("right");
+
+            /*testers, not sure if ill use them yet*/
             if (e.KeyCode == Keys.A)
                 Console.WriteLine("The A key was pressed");
 

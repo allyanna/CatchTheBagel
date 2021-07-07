@@ -12,6 +12,7 @@ namespace View
         private Image bagel;
         private Image lifeBooster;
         private Image pointBooster;
+        private Image playerImg;
 
         private Game game;
 
@@ -19,7 +20,7 @@ namespace View
         /// <summary>
         /// Draws the world of the CatchTheBagel game for the view form
         /// </summary>
-        public GamePanel(Game game) 
+        public GamePanel(Game game)
         {
             DoubleBuffered = true; //tells that we need to repaint the panel
 
@@ -27,6 +28,7 @@ namespace View
             bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\Bagel.png");
             lifeBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\LifeBooster.png");
             pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\PointBooster.png");
+            playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\bagel-ghost-bg-sq.png");
 
             this.game = game;
 
@@ -36,6 +38,23 @@ namespace View
         public delegate void DrawComponent(object o, PaintEventArgs e);
 
         /// <summary>
+        /// Draws the player at its current position
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        private void DrawPlayer(object o, PaintEventArgs e)
+        {
+            Player p = o as Player;
+            /* e.Graphics.DrawImage(playerImg, new PointF(p.GetPointX(), p.GetPointY()));*/
+            // TODO: some work needed
+            using (System.Drawing.SolidBrush white = new System.Drawing.SolidBrush(Color.White)) 
+            {
+                Rectangle r = new Rectangle(p.GetPointX(), p.GetPointY(), 50, 50);
+                e.Graphics.FillRectangle(white, r);
+            }
+        }
+
+        /// <summary>
         /// Draws a bagel when it is time to be re-drawn
         /// </summary>
         /// <param name="o"></param>
@@ -43,7 +62,7 @@ namespace View
         private void DrawBagel(object o, PaintEventArgs e)
         {
             Bagel b = o as Bagel;
-            e.Graphics.DrawImage(bagel, new PointF(b.GetPointX(), b.GetPointY())); //These points should be coming from the object
+            e.Graphics.DrawImage(bagel, new PointF(b.GetPointX(), b.GetPointY()));
         }
 
 
@@ -92,7 +111,7 @@ namespace View
         /// <param name="e"></param>
         private void DrawGround(object o, PaintEventArgs e)
         {
-            using (System.Drawing.SolidBrush greenBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Green))
+            using (System.Drawing.SolidBrush greenBrush = new System.Drawing.SolidBrush(Color.FromArgb(91, 140, 69)))
             {
                 Rectangle r = new Rectangle(0, 750, Constants.SCREENSIZE, 50);
                 e.Graphics.FillRectangle(greenBrush, r);
@@ -109,6 +128,10 @@ namespace View
         {
             /*   DrawBagel(new Object(), e);*/
 
+            lock (game.GetPlayer())
+            {
+                DrawPlayer(game.GetPlayer(), e);
+            }
             lock (game.AllBagels)
             {
                 foreach (Bagel b in game.AllBagels.Values)
@@ -116,8 +139,8 @@ namespace View
                     DrawBagel(b, e);
                 }
             }
-            DrawLifeBooster(new object(), e);
-            DrawPointBooster(new object(), e);
+/*            DrawLifeBooster(new object(), e);
+            DrawPointBooster(new object(), e);*/
             DrawLabel(game, e);
             DrawGround(new object(), e);
 
