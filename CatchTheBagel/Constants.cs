@@ -9,7 +9,7 @@ namespace CatchTheBagel
     /// </summary>
     public static class Constants
     {
-        public const int SCREENSIZE = 900-25;
+        public const int SCREENSIZE = 900-25; //877
         public const int STARTLIVES = 3;
         
         //points players earn at each level

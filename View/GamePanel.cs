@@ -19,7 +19,7 @@ namespace View
         /// <summary>
         /// Draws the world of the CatchTheBagel game for the view form
         /// </summary>
-        public GamePanel(Game game) //TODO:: pass catch the bagel, so it can be continually drawn until it must disappear
+        public GamePanel(Game game) 
         {
             DoubleBuffered = true; //tells that we need to repaint the panel
 
@@ -29,8 +29,6 @@ namespace View
             pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\PointBooster.png");
 
             this.game = game;
-
-
 
         }
 

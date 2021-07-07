@@ -27,6 +27,7 @@ namespace CatchTheBagel
         public Dictionary<int, PointBooster> AllPBoosters { get; set; }
         public Dictionary<int, Bagel> AllBagels { get; set; }
         public Dictionary<int, LifeBooster> AllLBoosters { get; set; }
+        //TODO: bad boost
 
 
         public Game()
