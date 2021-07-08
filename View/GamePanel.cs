@@ -47,7 +47,7 @@ namespace View
             Player p = o as Player;
             /* e.Graphics.DrawImage(playerImg, new PointF(p.GetPointX(), p.GetPointY()));*/
             // TODO: some work needed
-            using (System.Drawing.SolidBrush white = new System.Drawing.SolidBrush(Color.White)) 
+            using (System.Drawing.SolidBrush white = new System.Drawing.SolidBrush(Color.White))
             {
                 Rectangle r = new Rectangle(p.GetPointX(), p.GetPointY(), 50, 50);
                 e.Graphics.FillRectangle(white, r);
@@ -119,6 +119,23 @@ namespace View
 
         }
 
+        /// <summary>
+        /// Draws the game over screen 
+        /// </summary>
+        /// <param name="e"></param>
+        private void  DrawGameOverLabel(Object o, PaintEventArgs e)
+        {
+            Game g = o as Game;
+            using (System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
+            {
+                Font font = new Font("Cambria", 30, FontStyle.Bold);
+                Font font2 = new Font("Cambria", 20, FontStyle.Bold);
+                e.Graphics.DrawString("GAME OVER", font, blackBrush, 315, 350);
+           /*     e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 315, 400);
+                e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 315, 450);*/
+            }
+        }
+
 
         /// <summary>
         /// This method invokes when the GamePanel needs to be re-drawn
@@ -126,23 +143,32 @@ namespace View
         /// <param name="e">The PaintEventArgs to access the graphics</param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            /*   DrawBagel(new Object(), e);*/
 
-            lock (game.GetPlayer())
+            if (!game.CheckGameOver())
             {
-                DrawPlayer(game.GetPlayer(), e);
-            }
-            lock (game.AllBagels)
-            {
-                foreach (Bagel b in game.AllBagels.Values)
+                lock (game.GetPlayer())
+                    DrawPlayer(game.GetPlayer(), e);
+
+                lock (game.AllBagels)
                 {
-                    DrawBagel(b, e);
+                    foreach (Bagel b in game.AllBagels.Values)
+                        DrawBagel(b, e);
                 }
+                /*DrawLifeBooster(new object(), e);
+                  DrawPointBooster(new object(), e);*/
+                DrawLabel(game, e);
+                DrawGround(new object(), e);
             }
-/*            DrawLifeBooster(new object(), e);
-            DrawPointBooster(new object(), e);*/
-            DrawLabel(game, e);
-            DrawGround(new object(), e);
+            else 
+            {
+                lock (game.AllBagels)
+                {
+                    foreach (Bagel b in game.AllBagels.Values)
+                        DrawBagel(b, e);
+                }
+                //draw Game over
+                DrawGameOverLabel(game, e);
+            }
 
             // call on paint again to redraw
             base.OnPaint(e);

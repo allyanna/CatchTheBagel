@@ -55,6 +55,12 @@ namespace CatchTheBagel
 
         }
 
+        // Gets the count of the bagel
+        public int getBagelCount() {
+            // needs some work
+            return IDBagel + 1;
+        }
+
         /// <summary>
         /// Returns the player
         /// </summary>
@@ -83,7 +89,6 @@ namespace CatchTheBagel
         public void SetLife(int life)
         {
             LivesLeft = LivesLeft + (life);
-            //TODO::do i check if the player reached zero here or somewhere else
         }
 
         /// <summary>
@@ -125,18 +130,59 @@ namespace CatchTheBagel
         }
 
         //**********************************making changes to the dictionaries*******************************//
+
         /// <summary>
         /// Adds bagels in the bagel when needed
         /// </summary>
         public void AddBagel()
         {
-            int randX = rng.Next(20, 840);
+            int randX = rng.Next(30, 795);
             int check = rng.Next(10);
+    
+            AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
+            this.IDBagel++;
+  
+        }
 
-            if (check % 2 == 0)
+        /// <summary>
+        /// Checks whether bagels need to be removed because they hit the ground, or hit a player. updates in life and points
+        /// </summary>
+        public void CheckBagels()
+        {
+            //+50 here length
+            int playerX = player.GetPointX();
+            //+50 here for the width
+            int playerY = player.GetPointY();
+
+            List<int> itemsToRemove = new List<int>();
+
+            lock (AllBagels)
             {
-                AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
-                this.IDBagel++;
+                foreach (Bagel b in AllBagels.Values)
+                {
+                    int bagelX = b.GetPointX();
+                    int bagelY = b.GetPointY();
+
+                    if (bagelY >= 690)
+                    {
+                        itemsToRemove.Add(b.GetID());
+                        SetLife(-1);
+                    }
+                    else if ((playerX - 50 <= bagelX && playerX + 50 >= bagelX )&& bagelY + 60 >= 690)
+                    {
+
+                        itemsToRemove.Add(b.GetID());
+                        ChangePoints(+10);
+                    }
+                }
+            }
+
+            lock (AllBagels)
+            {
+                for (int i = 0; i < itemsToRemove.Count; i++)
+                {
+                    AllBagels.Remove(itemsToRemove[i]);
+                }
             }
         }
 
@@ -150,12 +196,29 @@ namespace CatchTheBagel
             lock (player)
             {
                 if (movement == "left" && x > 0)
-                    player.SetPointX(x - 1);
+                    player.SetPointX(x - 3);
                 else if (movement == "right" && x < 825)
-                    player.SetPointX(x + 1); ;
+                    player.SetPointX(x + 3);
+                else if (x <= 0)
+                    player.SetPointX(825);
+                else if (x >= 825)
+                    player.SetPointX(0);
             }
         }
 
+
+        /// <summary>
+        /// Checks if there are no remaining lives and clears all dictionaries
+        /// </summary>
+        public bool CheckGameOver()
+        {
+            if (LivesLeft <= 0)
+            {
+                //clear all dictionaries
+                return true;
+            }
+            return false;
+        }
 
     }
 }

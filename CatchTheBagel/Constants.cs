@@ -9,20 +9,20 @@ namespace CatchTheBagel
     /// </summary>
     public static class Constants
     {
-        public const int SCREENSIZE = 900-25; //877
+        public const int SCREENSIZE = 900 - 25; //875
         public const int STARTLIVES = 3;
-        
+
         //points players earn at each level
         public const int POINTSL1 = 5;
         public const int PointsL2 = 10;
         public const int POINTSL3 = 15;
-        public const int POINTSL4= 20;
+        public const int POINTSL4 = 20;
         public const int POINTSL5 = 25;
         public const int POINTSL6 = 30;
         public const int PointsL7 = 35;
         public const int POINTSL8 = 40;
         public const int POINTSL9 = 45;
-        public const int POINTSL10 = 47;
+        public const int POINTSL10 = 50;
 
         //TODO need to add for later
     }

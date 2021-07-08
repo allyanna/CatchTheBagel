@@ -31,8 +31,8 @@ namespace View
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@ namespace View
             this.hToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1668, 49);
+            this.menuStrip1.Size = new System.Drawing.Size(1668, 52);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -53,15 +53,8 @@ namespace View
             this.aboutToolStripMenuItem,
             this.controlsToolStripMenuItem});
             this.hToolStripMenuItem.Name = "hToolStripMenuItem";
-            this.hToolStripMenuItem.Size = new System.Drawing.Size(104, 45);
+            this.hToolStripMenuItem.Size = new System.Drawing.Size(104, 48);
             this.hToolStripMenuItem.Text = "Help";
-            // 
-            // controlsToolStripMenuItem
-            // 
-            this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
-            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
-            this.controlsToolStripMenuItem.Text = "Controls";
-            this.controlsToolStripMenuItem.Click += new System.EventHandler(this.controlsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -70,13 +63,20 @@ namespace View
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // view
+            // controlsToolStripMenuItem
+            // 
+            this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
+            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.controlsToolStripMenuItem.Text = "Controls";
+            this.controlsToolStripMenuItem.Click += new System.EventHandler(this.controlsToolStripMenuItem_Click);
+            // 
+            // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1668, 1413);
             this.Controls.Add(this.menuStrip1);
-            this.Name = "view";
+            this.Name = "View";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.view_Load);
             this.menuStrip1.ResumeLayout(false);

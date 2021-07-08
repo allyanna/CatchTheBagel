@@ -34,7 +34,7 @@ namespace View
             ClientSize = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
 
             // set the back color of the game
-            BackColor = Color.Black;//Color.FromArgb(244, 202, 247);
+            BackColor = Color.Black;
 
             //Place and add the game panel components
             gamePanel = new GamePanel(game);
@@ -51,7 +51,7 @@ namespace View
             //handles the intervals of movements needed
             time.Interval = 3000;
             time.Start();
-            time.Tick += TimerTick;
+            time.Tick += BagelTick;
 
 
             //update the page
@@ -79,6 +79,9 @@ namespace View
                 }
             }
             gamePanel.Invalidate(); //redraws the panel
+
+            game.CheckBagels();
+
         }
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TimerTick(object sender, EventArgs e)
+        private void BagelTick(object sender, EventArgs e)
         {
             Console.WriteLine("timer was triggered");
             time.Stop();
@@ -110,12 +113,14 @@ namespace View
             if (e.KeyCode == Keys.Right)
                 game.MovePlayer("right");
 
-            /*testers, not sure if ill use them yet*/
+            if (e.KeyCode == Keys.Q)
+                this.Close();
+
             if (e.KeyCode == Keys.A)
-                Console.WriteLine("The A key was pressed");
+                game.MovePlayer("left");
 
             if (e.KeyCode == Keys.D)
-                Console.WriteLine("The D key was presssed");
+                game.MovePlayer("right");
         }
 
         private void MouseClickedHandler(object sender, MouseEventArgs e)
