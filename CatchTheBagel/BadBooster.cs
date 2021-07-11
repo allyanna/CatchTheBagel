@@ -5,13 +5,16 @@ using System.Text;
 namespace CatchTheBagel
 {
     /// <summary>
-    /// Represents a player
+    /// Represents a bad boost that brings down a players points (along with its life maybe)
     /// </summary>
-    public class Player : BaseClass
+    public class BadBooster : BaseClass
     {
-        public Player() { }
+        public BadBooster()
+        {
+            //defaults?
+        }
 
-        public Player(int ID, int pointX, int pointY)
+        public BadBooster(int ID, int pointX, int pointY)
         {
             this.ID = ID;
             this.pointX = pointX;

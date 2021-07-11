@@ -13,9 +13,20 @@ namespace CatchTheBagel
 
         // TODO:: ADD needed variables here
         private int LivesLeft;
-        private int PointBooster;
         private int CurrentPoints;
         private int CurrentLevel;
+        private int BagelCount;
+        private int LevelPoints;
+        private int PlayerSpeed;
+
+        private int SpriteSpeed;
+
+        // keeps track of how many boosts a level can have
+        // and how many are left that will spawn
+        private int PointBoosts;
+        private int LifeBoosts;
+        //TODO: bad boost
+        //TODO: Clear boost
 
         //TODO: declare id's here so they can be used
         private int IDPBooster;
@@ -36,9 +47,15 @@ namespace CatchTheBagel
         public Game()
         {
             LivesLeft = Constants.STARTLIVES;
-            PointBooster = 0;
+            PointBoosts = 0;
+            LifeBoosts = 0;
             CurrentPoints = 0;
             CurrentLevel = 1;
+            BagelCount = 0;
+            LevelPoints = Constants.POINTSL1;
+            PlayerSpeed = Constants.INITIAL_P_SPEED;
+
+            SpriteSpeed = Constants.SPRITE_SPEED1;
 
             //initialize id's so they can be used
             IDPBooster = 0;
@@ -56,9 +73,10 @@ namespace CatchTheBagel
         }
 
         // Gets the count of the bagel
-        public int getBagelCount() {
+        public int getBagelCount()
+        {
             // needs some work
-            return IDBagel + 1;
+            return BagelCount;
         }
 
         /// <summary>
@@ -101,13 +119,52 @@ namespace CatchTheBagel
         }
 
         /// <summary>
-        /// Increase the level of the game
+        /// Increase the level of the game and make additional changes to points, boosts, and perks to a new level
         /// </summary>
-        public void IncreaseLevel()
+        public void ChangeLevel()
         {
-            //TODO:: decide what we need to do when it hits level 11
-            //do we end it here or the view???
             CurrentLevel = CurrentLevel + 1;
+            PlayerSpeed = PlayerSpeed + 2; //TODO: is this how fast you want to increase the speed
+
+            switch (CurrentLevel)
+            {
+                case 2:
+                    LevelPoints = Constants.POINTSL2;
+                    SpriteSpeed = Constants.SPRITE_SPEED2;
+                    break;
+                case 3:
+                    LevelPoints = Constants.POINTSL3;
+                    SpriteSpeed = Constants.SPRITE_SPEED3;
+                    break;
+                case 4:
+                    LevelPoints = Constants.POINTSL4;
+                    SpriteSpeed = Constants.SPRITE_SPEED4;
+                    break;
+                case 5:
+                    LevelPoints = Constants.POINTSL5;
+                    SpriteSpeed = Constants.SPRITE_SPEED5;
+                    break;
+                case 6:
+                    LevelPoints = Constants.POINTSL6;
+                    SpriteSpeed = Constants.SPRITE_SPEED6;
+                    break;
+                case 7:
+                    LevelPoints = Constants.POINTSL7;
+                    SpriteSpeed = Constants.SPRITE_SPEED7;
+                    break;
+                case 8:
+                    LevelPoints = Constants.POINTSL8;
+                    SpriteSpeed = Constants.SPRITE_SPEED8;
+                    break;
+                case 9:
+                    LevelPoints = Constants.POINTSL9;
+                    SpriteSpeed = Constants.SPRITE_SPEED9;
+                    break;
+                case 10:
+                    LevelPoints = Constants.POINTSL10;
+                    SpriteSpeed = Constants.SPRITE_SPEED10;
+                    break;
+            }
         }
 
         /// <summary>
@@ -138,11 +195,25 @@ namespace CatchTheBagel
         {
             int randX = rng.Next(30, 795);
             int check = rng.Next(10);
-    
+
             AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
             this.IDBagel++;
-  
+
         }
+
+        /// <summary>
+        /// Moves bagels to its new position
+        /// </summary>
+        public void MoveBagels() {
+            lock (AllBagels)
+            {
+                foreach (Bagel b in AllBagels.Values)
+                {
+                    b.SetPointY(b.GetPointY() + SpriteSpeed); //TODO: do i need to put this in the game?
+                }
+            }
+        }
+
 
         /// <summary>
         /// Checks whether bagels need to be removed because they hit the ground, or hit a player. updates in life and points
@@ -168,11 +239,13 @@ namespace CatchTheBagel
                         itemsToRemove.Add(b.GetID());
                         SetLife(-1);
                     }
-                    else if ((playerX - 50 <= bagelX && playerX + 50 >= bagelX )&& bagelY + 60 >= 690)
+                    else if ((playerX - 50 <= bagelX && playerX + 50 >= bagelX) && bagelY + 48 >= 690)
                     {
 
                         itemsToRemove.Add(b.GetID());
-                        ChangePoints(+10);
+                        ChangePoints(+LevelPoints);
+                        // helps with leveling up
+                        BagelCount++;
                     }
                 }
             }
@@ -196,9 +269,9 @@ namespace CatchTheBagel
             lock (player)
             {
                 if (movement == "left" && x > 0)
-                    player.SetPointX(x - 3);
+                    player.SetPointX(x - PlayerSpeed);
                 else if (movement == "right" && x < 825)
-                    player.SetPointX(x + 3);
+                    player.SetPointX(x + PlayerSpeed);
                 else if (x <= 0)
                     player.SetPointX(825);
                 else if (x >= 825)
@@ -206,6 +279,55 @@ namespace CatchTheBagel
             }
         }
 
+
+        /// <summary>
+        /// Checks whether a player can level up based on the bagels they have caught
+        /// </summary>
+        public void CheckLevelUp()
+        {
+
+            if (BagelCount == 15 && CurrentLevel == 1)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 30 && CurrentLevel == 2)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 45 && CurrentLevel == 3)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 60 && CurrentLevel == 4)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 75 && CurrentLevel == 5)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 90 && CurrentLevel == 6)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 105 && CurrentLevel == 7)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 120 && CurrentLevel == 8)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount == 135 && CurrentLevel == 9)
+            {
+                ChangeLevel();
+            }
+            else if (BagelCount >= 150)
+            {
+                //TODO say you won or something, idk
+            }
+
+        }
 
         /// <summary>
         /// Checks if there are no remaining lives and clears all dictionaries
@@ -217,6 +339,8 @@ namespace CatchTheBagel
                 //clear all dictionaries
                 return true;
             }
+
+            CheckLevelUp(); //TODO: not sure where to put this for now
             return false;
         }
 

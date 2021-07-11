@@ -19,10 +19,9 @@ namespace View
         GamePanel gamePanel;
 
         // Tracks when to move positions and repaint items
-        Timer time = new Timer();
-
+        Timer BagelTime = new Timer();
         // Creates a smoother transition to updating
-        Timer updatePage = new Timer();
+        Timer UpdateTime = new Timer();
 
         public View()
         {
@@ -49,15 +48,15 @@ namespace View
             gamePanel.MouseClick += MouseClickedHandler;
 
             //handles the intervals of movements needed
-            time.Interval = 3000;
-            time.Start();
-            time.Tick += BagelTick;
+            BagelTime.Interval = 3000;
+            BagelTime.Start();
+            BagelTime.Tick += BagelTick;
 
 
             //update the page
-            updatePage.Interval = 10;
-            updatePage.Start();
-            updatePage.Tick += TimerUpdate;
+            UpdateTime.Interval = 10;
+            UpdateTime.Start();
+            UpdateTime.Tick += TimerUpdate;
 
         }
 
@@ -70,14 +69,11 @@ namespace View
         {
 
             //keep moving the items
-            lock (game.AllBagels)
-            {
-                foreach (Bagel b in game.AllBagels.Values)
-                {
-                    b.SetPointY(b.GetPointY() + 1); //TODO: do i need to put this in the game?
-                    Bagel s = b;
-                }
-            }
+            game.MoveBagels();
+           
+            //life booster and pointbooster
+
+
             gamePanel.Invalidate(); //redraws the panel
 
             game.CheckBagels();
@@ -92,8 +88,8 @@ namespace View
         private void BagelTick(object sender, EventArgs e)
         {
             Console.WriteLine("timer was triggered");
-            time.Stop();
-            time.Start();
+            BagelTime.Stop();
+            BagelTime.Start();
 
             // decides whether to add a bagel
             game.AddBagel();

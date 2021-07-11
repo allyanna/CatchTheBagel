@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
+    <Content Include="Sprites\Bagel-P.png" />
     <Content Include="Sprites\bagel-ghost-bg-sq.png" />
     <Content Include="Sprites\Bagel.png" />
     <Content Include="Sprites\LifeBooster.png" />
