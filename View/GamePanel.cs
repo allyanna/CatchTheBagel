@@ -98,9 +98,9 @@ namespace View
             Game g = o as Game;
             using (System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
             {
-                Font font = new Font("Cambria", 10, FontStyle.Bold);
+                Font font = new Font("Cambria", 15, FontStyle.Bold);
                 String labels = "Level: " + g.GetCurrentLevel() + "\n" + "Points: " + g.GetPoints() + "\n" + "Lives Left: " + g.GetLivesLeft() + "\n" + "Bagel count: " + g.getBagelCount();
-                e.Graphics.DrawString(labels, font, blackBrush, 0, 0);
+                e.Graphics.DrawString(labels, font, blackBrush, 3, 3);
             }
         }
 

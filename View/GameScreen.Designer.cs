@@ -1,7 +1,7 @@
 ﻿
 namespace View
 {
-    partial class View
+    partial class GameScreen
     {
         /// <summary>
         /// Required designer variable.

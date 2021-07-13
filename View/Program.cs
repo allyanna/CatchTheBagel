@@ -16,7 +16,9 @@ namespace View
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new View());
+            /*Application.Run(new View());*/
+            Application.Run(new StartScreen());
+            // ^^ we want to pick the game option before we do anything breh
         }
     }
 }

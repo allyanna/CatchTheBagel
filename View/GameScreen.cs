@@ -13,17 +13,19 @@ using CatchTheBagel;
 
 namespace View
 {
-    public partial class View : Form
+    public partial class GameScreen : Form
     {
         Game game;
         GamePanel gamePanel;
 
-        // Tracks when to move positions and repaint items
+        /* Tracks when to move positions and repaint items */
         Timer BagelTime = new Timer();
-        // Creates a smoother transition to updating
-        Timer UpdateTime = new Timer();
+        /* Creates a smoother transition to updating */
+        Timer UpdatePlayers = new Timer();
+        /* Updates all forms of boost*/
+        Timer UpdateBoosts = new Timer();
 
-        public View()
+        public GameScreen()
         {
             InitializeComponent();
 
@@ -31,11 +33,12 @@ namespace View
 
             // Set the window size
             ClientSize = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
+            this.CenterToScreen();
 
             // set the back color of the game
             BackColor = Color.Black;
 
-            //Place and add the game panel components
+            // Place and add the game panel components
             gamePanel = new GamePanel(game);
             gamePanel.Location = new Point(0, 22); //TO mess with later
             gamePanel.Size = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
@@ -43,21 +46,36 @@ namespace View
             this.Controls.Add(gamePanel);
             this.Text = "Catch the Bagel";
 
-            //handle key presses and mouse presses
+            // Handles key presses and mouse presses
             KeyDown += KeyDownPressed;
             gamePanel.MouseClick += MouseClickedHandler;
 
-            //handles the intervals of movements needed
+            // Handles the intervals of movements needed
             BagelTime.Interval = 3000;
             BagelTime.Start();
             BagelTime.Tick += BagelTick;
 
 
-            //update the page
-            UpdateTime.Interval = 10;
-            UpdateTime.Start();
-            UpdateTime.Tick += TimerUpdate;
+            // Update the player and things unrelated to boosts
+            UpdatePlayers.Interval = 10;
+            UpdatePlayers.Start();
+            UpdatePlayers.Tick += NonBoostUpdate;
 
+            // Update all boosts
+            UpdateBoosts.Interval = 30;
+            UpdateBoosts.Start();
+            UpdateBoosts.Tick += BoostsUpdate;
+
+
+        }
+
+        private void BoostsUpdate(object sender, EventArgs e)
+        {
+            //keep moving the items
+            game.MoveBagels();
+
+            //life booster and pointbooster
+            game.CheckBagels();
         }
 
         /// <summary>
@@ -65,18 +83,11 @@ namespace View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TimerUpdate(object sender, EventArgs e)
+        private void NonBoostUpdate(object sender, EventArgs e)
         {
-
-            //keep moving the items
-            game.MoveBagels();
-           
-            //life booster and pointbooster
-
-
             gamePanel.Invalidate(); //redraws the panel
+            // Player is called in game panel hmm
 
-            game.CheckBagels();
 
         }
 
