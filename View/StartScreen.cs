@@ -60,6 +60,7 @@ namespace View
             //TODO:: See what player has been selected and draw that in the view
             GameScreen view = new GameScreen();
             view.Show();
+            view.Focus();
         }
     }
 }

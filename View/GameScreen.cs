@@ -73,9 +73,11 @@ namespace View
         {
             //keep moving the items
             game.MoveBagels();
+            game.MovePointBoost();
 
             //life booster and pointbooster
             game.CheckBagels();
+            game.CheckPointBoost();
         }
 
         /// <summary>
@@ -104,6 +106,9 @@ namespace View
 
             // decides whether to add a bagel
             game.AddBagel();
+
+            //******************************
+            game.AddPointBoost();
 
         }
 

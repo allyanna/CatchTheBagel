@@ -26,7 +26,7 @@ namespace CatchTheBagel
         private int PointBoosts;
         private int LifeBoosts;
         //TODO: bad boost
-        //TODO: Clear boost
+
 
         //TODO: declare id's here so they can be used
         private int IDPBooster;
@@ -72,10 +72,12 @@ namespace CatchTheBagel
 
         }
 
-        // Gets the count of the bagel
+        /// <summary>
+        /// Gets the count of how many bagels the player has collected
+        /// </summary>
+        /// <returns></returns>
         public int getBagelCount()
         {
-            // needs some work
             return BagelCount;
         }
 
@@ -87,9 +89,6 @@ namespace CatchTheBagel
         {
             return player;
         }
-        //TODO:: what components does a game have?
-        //it must keep track of everything just like how we did in the 
-        //tankwars controller?? hmm we'll have to sketch this out or something
 
         /// <summary>
         /// Gets the number of lives the player has left
@@ -106,7 +105,7 @@ namespace CatchTheBagel
         /// <returns></returns>
         public void SetLife(int life)
         {
-            LivesLeft = LivesLeft + (life);
+            LivesLeft += (life);
         }
 
         /// <summary>
@@ -123,8 +122,8 @@ namespace CatchTheBagel
         /// </summary>
         public void ChangeLevel()
         {
-            CurrentLevel = CurrentLevel + 1;
-            PlayerSpeed = PlayerSpeed + 2; //TODO: is this how fast you want to increase the speed
+            CurrentLevel += 1;
+            PlayerSpeed += 2; //TODO: how fast you want to increase the speed
 
             switch (CurrentLevel)
             {
@@ -188,13 +187,14 @@ namespace CatchTheBagel
 
         //**********************************making changes to the dictionaries*******************************//
 
+        /*SECTION THAT DEALS WITH BAGELS*/
+
         /// <summary>
         /// Adds bagels in the bagel when needed
         /// </summary>
         public void AddBagel()
         {
             int randX = rng.Next(30, 795);
-            int check = rng.Next(10);
 
             AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
             this.IDBagel++;
@@ -204,13 +204,12 @@ namespace CatchTheBagel
         /// <summary>
         /// Moves bagels to its new position
         /// </summary>
-        public void MoveBagels() {
+        public void MoveBagels()
+        {
             lock (AllBagels)
             {
                 foreach (Bagel b in AllBagels.Values)
-                {
                     b.SetPointY(b.GetPointY() + SpriteSpeed); //TODO: do i need to put this in the game?
-                }
             }
         }
 
@@ -241,7 +240,6 @@ namespace CatchTheBagel
                     }
                     else if ((playerX - 50 <= bagelX && playerX + 50 >= bagelX) && bagelY + 48 >= 690)
                     {
-
                         itemsToRemove.Add(b.GetID());
                         ChangePoints(+LevelPoints);
                         // helps with leveling up
@@ -253,11 +251,77 @@ namespace CatchTheBagel
             lock (AllBagels)
             {
                 for (int i = 0; i < itemsToRemove.Count; i++)
-                {
                     AllBagels.Remove(itemsToRemove[i]);
-                }
             }
         }
+
+        /*SECTION THAT DEALS WITH POINT BOOSTS*/
+
+        /// <summary>
+        /// Adds a point booster into the game
+        /// </summary>
+        public void AddPointBoost()
+        {
+            int randX = rng.Next(30, 795);
+
+            //TODO: check level, whether if it has a point boost or not
+            AllPBoosters.Add(IDPBooster, new PointBooster(IDPBooster, randX, 0));
+            this.IDPBooster++;
+        }
+
+        /// <summary>
+        /// Moves a point booster throughout the game
+        /// </summary>
+        public void MovePointBoost()
+        {
+            lock (AllPBoosters)
+            {
+                foreach (PointBooster p in AllPBoosters.Values)
+                    p.SetPointY(p.GetPointY() + SpriteSpeed); //TODO: do i need to put this in the game?
+            }
+        }
+
+        /// <summary>
+        /// Checks which point booster needs to be removed and have points added
+        /// </summary>
+        public void CheckPointBoost()
+        {
+            //+50 here length
+            int playerX = player.GetPointX();
+            //+50 here for the width
+            int playerY = player.GetPointY();
+
+            List<int> itemsToRemove = new List<int>();
+
+            lock (AllPBoosters)
+            {
+                foreach (PointBooster p in AllPBoosters.Values)
+                {
+                    int pointBX = p.GetPointX();
+                    int pointBY = p.GetPointY();
+
+                    if (pointBY >= 690)
+                        itemsToRemove.Add(p.GetID());
+                    else if ((playerX - 50 <= pointBX && playerX + 50 >= pointBX) && pointBY + 48 >= 690)
+                    {
+                        itemsToRemove.Add(p.GetID());
+                        ChangePoints(+LevelPoints * CurrentLevel * 10);
+                    }
+                }
+            }
+
+            lock (AllPBoosters)
+            {
+                for (int i = 0; i < itemsToRemove.Count; i++)
+                    AllPBoosters.Remove(itemsToRemove[i]);
+            }
+        }
+
+        /*SECTION THAT DEALS WITH LIFE BOOSTS*/
+
+        /*SECTION THAT DEALS WITH BAD BOOSTS*/
+
+        /*SECTION THAT DEALS WITH THE PLAYER*/
 
         /// <summary>
         /// Moves the player when the arrow keys are moving it

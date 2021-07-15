@@ -74,7 +74,7 @@ namespace View
         private void DrawLifeBooster(object o, PaintEventArgs e)
         {
             LifeBooster l = o as LifeBooster; //TODO
-            e.Graphics.DrawImage(lifeBooster, new PointF(150, 150));
+            e.Graphics.DrawImage(lifeBooster, new PointF(l.GetPointX(), l.GetPointY()));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace View
         private void DrawPointBooster(object o, PaintEventArgs e)
         {
             PointBooster p = o as PointBooster; //TODO
-            e.Graphics.DrawImage(pointBooster, new PointF(200, 200));
+            e.Graphics.DrawImage(pointBooster, new PointF(p.GetPointX(), p.GetPointY()));
         }
 
         /// <summary>
@@ -154,8 +154,15 @@ namespace View
                     foreach (Bagel b in game.AllBagels.Values)
                         DrawBagel(b, e);
                 }
-                /*DrawLifeBooster(new object(), e);
-                  DrawPointBooster(new object(), e);*/
+
+                lock (game.AllPBoosters)
+                {
+                    foreach (PointBooster p in game.AllPBoosters.Values)
+                        DrawPointBooster(p, e);
+                }
+
+
+                /*DrawLifeBooster(new object(), e);*/
                 DrawLabel(game, e);
                 DrawGround(new object(), e);
             }
@@ -166,6 +173,7 @@ namespace View
                     foreach (Bagel b in game.AllBagels.Values)
                         DrawBagel(b, e);
                 }
+
                 //draw Game over
                 DrawGameOverLabel(game, e);
             }

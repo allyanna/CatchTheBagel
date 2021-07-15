@@ -12,7 +12,7 @@ namespace CatchTheBagel
         public const int SCREENSIZE = 900 - 25; //875
         public const int STARTLIVES = 3;
 
-        // points players earn at each level //can just increment in the game
+        // points players earn at each level (can just increment in the game)
         public const int POINTSL1 = 5;
         public const int POINTSL2 = 10;
         public const int POINTSL3 = 15;
@@ -44,6 +44,6 @@ namespace CatchTheBagel
 
         // number of life boosters (level 5 and up)
 
-        // number of clear bagel boosters (level 5 and up)
+        // number of clear bagel boosters (level 5 and up) NOT SURE IF WANT TO DO
     }
 }
