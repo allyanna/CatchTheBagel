@@ -74,10 +74,14 @@ namespace View
             //keep moving the items
             game.MoveBagels();
             game.MovePointBoost();
+            game.MoveLifeBoost();
+            game.MoveBadBoost();
 
             //life booster and pointbooster
             game.CheckBagels();
             game.CheckPointBoost();
+            game.CheckLifeBoost();
+            game.CheckBadBoost();
         }
 
         /// <summary>
@@ -89,8 +93,6 @@ namespace View
         {
             gamePanel.Invalidate(); //redraws the panel
             // Player is called in game panel hmm
-
-
         }
 
         /// <summary>
@@ -109,6 +111,8 @@ namespace View
 
             //******************************
             game.AddPointBoost();
+            game.AddLifeBoost();
+            game.AddBadBoost();
 
         }
 

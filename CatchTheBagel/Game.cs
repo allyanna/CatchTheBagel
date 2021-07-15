@@ -25,6 +25,7 @@ namespace CatchTheBagel
         // and how many are left that will spawn
         private int PointBoosts;
         private int LifeBoosts;
+        private int BadBoosts;
         //TODO: bad boost
 
 
@@ -32,6 +33,7 @@ namespace CatchTheBagel
         private int IDPBooster;
         private int IDLBooster;
         private int IDBagel;
+        private int IDBBooster;
 
         Random rng = new Random();
 
@@ -39,7 +41,7 @@ namespace CatchTheBagel
         public Dictionary<int, PointBooster> AllPBoosters { get; set; }
         public Dictionary<int, Bagel> AllBagels { get; set; }
         public Dictionary<int, LifeBooster> AllLBoosters { get; set; }
-        //TODO: bad boost
+        public Dictionary<int, BadBooster> AllBBoosters { get; set; }
 
 
         private Player player;
@@ -49,9 +51,12 @@ namespace CatchTheBagel
             LivesLeft = Constants.STARTLIVES;
             PointBoosts = 0;
             LifeBoosts = 0;
+            BadBoosts = 0;
+
             CurrentPoints = 0;
             CurrentLevel = 1;
             BagelCount = 0;
+
             LevelPoints = Constants.POINTSL1;
             PlayerSpeed = Constants.INITIAL_P_SPEED;
 
@@ -61,15 +66,14 @@ namespace CatchTheBagel
             IDPBooster = 0;
             IDLBooster = 0;
             IDBagel = 0;
+            IDBBooster = 0;
 
             AllPBoosters = new Dictionary<int, PointBooster>();
             AllBagels = new Dictionary<int, Bagel>();
             AllLBoosters = new Dictionary<int, LifeBooster>();
+            AllBBoosters = new Dictionary<int, BadBooster>();
 
-
-
-            player = new Player(0, 0, 700); //TODO: need to move it
-
+            player = new Player(0, 0, 700); //start player on the left
         }
 
         /// <summary>
@@ -318,8 +322,128 @@ namespace CatchTheBagel
         }
 
         /*SECTION THAT DEALS WITH LIFE BOOSTS*/
+        /// <summary>
+        /// Adds a life boost in the game
+        /// </summary>
+        public void AddLifeBoost()
+        {
+            int randX = rng.Next(30, 795);
+
+            //TODO: level, and amount of life boosts
+            AllLBoosters.Add(IDLBooster, new LifeBooster(IDLBooster, randX, 0));
+            this.IDLBooster++;
+        }
+
+        /// <summary>
+        /// Moves a lifeboost in the game
+        /// </summary>
+        public void MoveLifeBoost()
+        {
+            lock (AllLBoosters)
+            {
+                foreach (LifeBooster l in AllLBoosters.Values)
+                    l.SetPointY(l.GetPointY() + SpriteSpeed);
+            }
+        }
+
+        /// <summary>
+        /// Checks which life booster needs to be removed, and whether a life needs
+        /// to be added
+        /// </summary>
+        public void CheckLifeBoost()
+        {
+            //+50 here length
+            int playerX = player.GetPointX();
+            //+50 here for the width
+            int playerY = player.GetPointY();
+
+            List<int> itemsToRemove = new List<int>();
+
+            lock (AllLBoosters)
+            {
+                foreach (LifeBooster l in AllLBoosters.Values)
+                {
+                    int pointLX = l.GetPointX();
+                    int pointLY = l.GetPointY();
+
+                    if (pointLY >= 690)
+                        itemsToRemove.Add(l.GetID());
+                    else if ((playerX - 50 <= pointLX && playerX + 50 >= pointLX) && pointLY + 48 >= 690)
+                    {
+                        itemsToRemove.Add(l.GetID());
+                        LivesLeft += 1;
+                    }
+                }
+            }
+
+            lock (AllLBoosters)
+            {
+                for (int i = 0; i < itemsToRemove.Count; i++)
+                    AllLBoosters.Remove(itemsToRemove[i]);
+            }
+        }
+
+
 
         /*SECTION THAT DEALS WITH BAD BOOSTS*/
+
+        /// <summary>
+        /// Adds a bad booster to the game
+        /// </summary>
+        public void AddBadBoost() {
+            int randX = rng.Next(30, 795);
+
+            //TODO: level, and amount of bad boosts
+            AllBBoosters.Add(IDBBooster, new BadBooster(IDBBooster, randX, 0));
+            this.IDBBooster++;
+        }
+
+        /// <summary>
+        /// Moves the bad booster
+        /// </summary>
+        public void MoveBadBoost() {
+            lock (AllBBoosters)
+            {
+                foreach (BadBooster b in AllBBoosters.Values)
+                    b.SetPointY(b.GetPointY() + SpriteSpeed);
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the bad booster needs to be moved and deduct a life from 
+        /// the player if it is caught
+        /// </summary>
+        public void CheckBadBoost() {
+            //+50 here length
+            int playerX = player.GetPointX();
+            //+50 here for the width
+            int playerY = player.GetPointY();
+
+            List<int> itemsToRemove = new List<int>();
+
+            lock (AllBBoosters)
+            {
+                foreach (BadBooster b in AllBBoosters.Values)
+                {
+                    int pointBX = b.GetPointX();
+                    int pointBY = b.GetPointY();
+
+                    if (pointBY >= 690)
+                        itemsToRemove.Add(b.GetID());
+                    else if ((playerX - 50 <= pointBX && playerX + 50 >= pointBX) && pointBY + 48 >= 690)
+                    {
+                        itemsToRemove.Add(b.GetID());
+                        LivesLeft -= 1;
+                    }
+                }
+            }
+
+            lock (AllBBoosters)
+            {
+                for (int i = 0; i < itemsToRemove.Count; i++)
+                    AllBBoosters.Remove(itemsToRemove[i]);
+            }
+        }
 
         /*SECTION THAT DEALS WITH THE PLAYER*/
 

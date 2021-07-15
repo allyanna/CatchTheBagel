@@ -13,6 +13,7 @@ namespace View
         private Image lifeBooster;
         private Image pointBooster;
         private Image playerImg;
+        private Image badBooster;
 
         private Game game;
 
@@ -29,6 +30,7 @@ namespace View
             lifeBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\LifeBooster.png");
             pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\PointBooster.png");
             playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\bagel-ghost-bg-sq.png");
+            badBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\BadBooster.png");
 
             this.game = game;
 
@@ -73,7 +75,7 @@ namespace View
         /// <param name="e"></param>
         private void DrawLifeBooster(object o, PaintEventArgs e)
         {
-            LifeBooster l = o as LifeBooster; //TODO
+            LifeBooster l = o as LifeBooster;
             e.Graphics.DrawImage(lifeBooster, new PointF(l.GetPointX(), l.GetPointY()));
         }
 
@@ -84,9 +86,22 @@ namespace View
         /// <param name="e"></param>
         private void DrawPointBooster(object o, PaintEventArgs e)
         {
-            PointBooster p = o as PointBooster; //TODO
+            PointBooster p = o as PointBooster;
             e.Graphics.DrawImage(pointBooster, new PointF(p.GetPointX(), p.GetPointY()));
         }
+
+        /// <summary>
+        /// Draws a bad booster when it is time to be re-drawn
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        private void DrawBadBooster(object o, PaintEventArgs e)
+        {
+            BadBooster b = o as BadBooster;
+            e.Graphics.DrawImage(badBooster, new PointF(b.GetPointX(), b.GetPointY()));
+        }
+
+
 
         /// <summary>
         /// Draws the label when it is time to be re-drawn
@@ -123,7 +138,7 @@ namespace View
         /// Draws the game over screen 
         /// </summary>
         /// <param name="e"></param>
-        private void  DrawGameOverLabel(Object o, PaintEventArgs e)
+        private void DrawGameOverLabel(Object o, PaintEventArgs e)
         {
             Game g = o as Game;
             using (System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
@@ -131,8 +146,8 @@ namespace View
                 Font font = new Font("Cambria", 30, FontStyle.Bold);
                 Font font2 = new Font("Cambria", 20, FontStyle.Bold);
                 e.Graphics.DrawString("GAME OVER", font, blackBrush, 315, 350);
-           /*     e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 315, 400);
-                e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 315, 450);*/
+                /*     e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 315, 400);
+                     e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 315, 450);*/
             }
         }
 
@@ -161,12 +176,22 @@ namespace View
                         DrawPointBooster(p, e);
                 }
 
+                lock (game.AllLBoosters) //in the works
+                {
+                    foreach (LifeBooster l in game.AllLBoosters.Values)
+                        DrawLifeBooster(l, e);
+                }
 
-                /*DrawLifeBooster(new object(), e);*/
+                lock (game.AllBBoosters) //in the works
+                {
+                    foreach (BadBooster b in game.AllBBoosters.Values)
+                        DrawBadBooster(b, e);
+                }
+
                 DrawLabel(game, e);
-                DrawGround(new object(), e);
+                DrawGround(new object(), e); //In the works
             }
-            else 
+            else
             {
                 lock (game.AllBagels)
                 {
