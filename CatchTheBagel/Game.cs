@@ -23,9 +23,9 @@ namespace CatchTheBagel
 
         // keeps track of how many boosts a level can have
         // and how many are left that will spawn
-        private int PointBoosts;
-        private int LifeBoosts;
-        private int BadBoosts;
+        private int PBoostCounts;
+        private int LBoostsCounts;
+        private int BBoostCounts;
         //TODO: bad boost
 
 
@@ -49,9 +49,9 @@ namespace CatchTheBagel
         public Game()
         {
             LivesLeft = Constants.STARTLIVES;
-            PointBoosts = 0;
-            LifeBoosts = 0;
-            BadBoosts = 0;
+            PBoostCounts = 0;
+            LBoostsCounts = 0;
+            BBoostCounts = 0;
 
             CurrentPoints = 0;
             CurrentLevel = 1;
@@ -269,8 +269,12 @@ namespace CatchTheBagel
             int randX = rng.Next(30, 795);
 
             //TODO: check level, whether if it has a point boost or not
-            AllPBoosters.Add(IDPBooster, new PointBooster(IDPBooster, randX, 0));
-            this.IDPBooster++;
+            if (LevelPoints >= 4 && PBoostCounts > 0 && CanBoost())
+            {
+                AllPBoosters.Add(IDPBooster, new PointBooster(IDPBooster, randX, 0));
+                this.IDPBooster++;
+                PBoostCounts--;
+            }
         }
 
         /// <summary>
@@ -330,8 +334,12 @@ namespace CatchTheBagel
             int randX = rng.Next(30, 795);
 
             //TODO: level, and amount of life boosts
-            AllLBoosters.Add(IDLBooster, new LifeBooster(IDLBooster, randX, 0));
-            this.IDLBooster++;
+            if (CurrentLevel >= 4 && LBoostsCounts > 0 && CanBoost())
+            {
+                AllLBoosters.Add(IDLBooster, new LifeBooster(IDLBooster, randX, 0));
+                this.IDLBooster++;
+                LBoostsCounts--;
+            }
         }
 
         /// <summary>
@@ -390,18 +398,24 @@ namespace CatchTheBagel
         /// <summary>
         /// Adds a bad booster to the game
         /// </summary>
-        public void AddBadBoost() {
+        public void AddBadBoost()
+        {
             int randX = rng.Next(30, 795);
 
             //TODO: level, and amount of bad boosts
-            AllBBoosters.Add(IDBBooster, new BadBooster(IDBBooster, randX, 0));
-            this.IDBBooster++;
+            if (CurrentLevel >= 4 && BBoostCounts > 0 && CanBoost())
+            {
+                AllBBoosters.Add(IDBBooster, new BadBooster(IDBBooster, randX, 0));
+                this.IDBBooster++;
+                BBoostCounts--;
+            }
         }
 
         /// <summary>
         /// Moves the bad booster
         /// </summary>
-        public void MoveBadBoost() {
+        public void MoveBadBoost()
+        {
             lock (AllBBoosters)
             {
                 foreach (BadBooster b in AllBBoosters.Values)
@@ -413,7 +427,8 @@ namespace CatchTheBagel
         /// Checks whether the bad booster needs to be moved and deduct a life from 
         /// the player if it is caught
         /// </summary>
-        public void CheckBadBoost() {
+        public void CheckBadBoost()
+        {
             //+50 here length
             int playerX = player.GetPointX();
             //+50 here for the width
@@ -530,6 +545,16 @@ namespace CatchTheBagel
 
             CheckLevelUp(); //TODO: not sure where to put this for now
             return false;
+        }
+
+        ////////////////////////////////////HELPERS/////////////////////////////////////////////
+        /// <summary>
+        /// Decides whether a boost can be added into the game
+        /// </summary>
+        /// <returns></returns>
+        public bool CanBoost() {
+            int rand = rng.Next(2);
+            return rand % 2 == 0;
         }
 
     }

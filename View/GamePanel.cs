@@ -29,7 +29,7 @@ namespace View
             bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\Bagel.png");
             lifeBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\LifeBooster.png");
             pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\PointBooster.png");
-            playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\bagel-ghost-bg-sq.png");
+            playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\bagel-ghost.bmp");
             badBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\BadBooster.png");
 
             this.game = game;
@@ -47,7 +47,7 @@ namespace View
         private void DrawPlayer(object o, PaintEventArgs e)
         {
             Player p = o as Player;
-            /* e.Graphics.DrawImage(playerImg, new PointF(p.GetPointX(), p.GetPointY()));*/
+            /*            e.Graphics.DrawImage(playerImg, new PointF(p.GetPointX(), p.GetPointY()));*/
             // TODO: some work needed
             using (System.Drawing.SolidBrush white = new System.Drawing.SolidBrush(Color.White))
             {
