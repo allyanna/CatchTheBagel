@@ -9,6 +9,8 @@ namespace CatchTheBagel
     /// </summary>
     public static class Constants
     {
+        public const int PLAYERSIZE = 70;
+
         public const int SCREENSIZE = 900 - 25; //875
         public const int STARTLIVES = 3;
 
@@ -39,10 +41,44 @@ namespace CatchTheBagel
         public const int SPRITE_SPEED9 = 9;
         public const int SPRITE_SPEED10 = 10;
 
+        // add bagel speed
+        public const int ADD_BAGEL_SPEED1 = 3000;
+        public const int ADD_BAGEL_SPEED2 = 2000;
+        public const int ADD_BAGEL_SPEED3 = 2000;
+        public const int ADD_BAGEL_SPEED4 = 2000;
+        public const int ADD_BAGEL_SPEED5 = 2000;
+        public const int ADD_BAGEL_SPEED6 = 2000;
+        public const int ADD_BAGEL_SPEED7 = 2000;
+        public const int ADD_BAGEL_SPEED8 = 2000;
+        public const int ADD_BAGEL_SPEED9 = 2000;
+        public const int ADD_BAGEL_SPEED10 = 2000;
+
+
 
         // number of point boosters (level 5 and up)
+        public const int P_BOOST5 = 1;
+        public const int P_BOOST6 = 2;
+        public const int P_BOOST7 = 3;
+        public const int P_BOOST8 = 4;
+        public const int P_BOOST9 = 4;
+        public const int P_BOOST10 = 4;
+
 
         // number of life boosters (level 5 and up)
+        public const int L_BOOST5 = 1;
+        public const int L_BOOST6 = 2;
+        public const int L_BOOST7 = 2;
+        public const int L_BOOST8 = 3;
+        public const int L_BOOST9 = 4;
+        public const int L_BOOST10 = 4;
+
+        // numhber of bad boosters (level 5 and up)
+        public const int B_BOOST5 = 1;
+        public const int B_BOOST6 = 1;
+        public const int B_BOOST7 = 1;
+        public const int B_BOOST8 = 2;
+        public const int B_BOOST9 = 3;
+        public const int B_BOOST10 = 3;
 
         // number of clear bagel boosters (level 5 and up) NOT SURE IF WANT TO DO
     }

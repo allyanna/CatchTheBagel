@@ -55,7 +55,7 @@ namespace CatchTheBagel
 
             CurrentPoints = 0;
             CurrentLevel = 1;
-            BagelCount = 0;
+            BagelCount = 0; ///TO TEST
 
             LevelPoints = Constants.POINTSL1;
             PlayerSpeed = Constants.INITIAL_P_SPEED;
@@ -73,7 +73,7 @@ namespace CatchTheBagel
             AllLBoosters = new Dictionary<int, LifeBooster>();
             AllBBoosters = new Dictionary<int, BadBooster>();
 
-            player = new Player(0, 0, 700); //start player on the left
+            player = new Player(0, 0, 680); //start player on the left TODO
         }
 
         /// <summary>
@@ -146,26 +146,50 @@ namespace CatchTheBagel
                 case 5:
                     LevelPoints = Constants.POINTSL5;
                     SpriteSpeed = Constants.SPRITE_SPEED5;
+                    // boosts
+                    PBoostCounts = Constants.P_BOOST5;
+                    LBoostsCounts = Constants.L_BOOST5;
+                    BBoostCounts = Constants.B_BOOST5;
                     break;
                 case 6:
                     LevelPoints = Constants.POINTSL6;
                     SpriteSpeed = Constants.SPRITE_SPEED6;
+                    // boosts
+                    PBoostCounts = Constants.P_BOOST6;
+                    LBoostsCounts = Constants.L_BOOST6;
+                    BBoostCounts = Constants.B_BOOST6;
                     break;
                 case 7:
                     LevelPoints = Constants.POINTSL7;
                     SpriteSpeed = Constants.SPRITE_SPEED7;
+                    // boosts
+                    PBoostCounts = Constants.P_BOOST7;
+                    LBoostsCounts = Constants.L_BOOST7;
+                    BBoostCounts = Constants.B_BOOST7;
                     break;
                 case 8:
                     LevelPoints = Constants.POINTSL8;
                     SpriteSpeed = Constants.SPRITE_SPEED8;
+                    // boosts
+                    PBoostCounts = Constants.P_BOOST8;
+                    LBoostsCounts = Constants.L_BOOST8;
+                    BBoostCounts = Constants.B_BOOST8;
                     break;
                 case 9:
                     LevelPoints = Constants.POINTSL9;
                     SpriteSpeed = Constants.SPRITE_SPEED9;
+                    // boosts 
+                    PBoostCounts = Constants.P_BOOST9;
+                    LBoostsCounts = Constants.L_BOOST9;
+                    BBoostCounts = Constants.B_BOOST9;
                     break;
                 case 10:
                     LevelPoints = Constants.POINTSL10;
                     SpriteSpeed = Constants.SPRITE_SPEED10;
+                    // boosts
+                    PBoostCounts = Constants.P_BOOST10;
+                    LBoostsCounts = Constants.L_BOOST10;
+                    BBoostCounts = Constants.B_BOOST10;
                     break;
             }
         }
@@ -242,7 +266,7 @@ namespace CatchTheBagel
                         itemsToRemove.Add(b.GetID());
                         SetLife(-1);
                     }
-                    else if ((playerX - 50 <= bagelX && playerX + 50 >= bagelX) && bagelY + 48 >= 690)
+                    else if ((playerX - Constants.PLAYERSIZE <= bagelX && playerX + Constants.PLAYERSIZE >= bagelX) && bagelY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
                         ChangePoints(+LevelPoints);
@@ -310,7 +334,7 @@ namespace CatchTheBagel
 
                     if (pointBY >= 690)
                         itemsToRemove.Add(p.GetID());
-                    else if ((playerX - 50 <= pointBX && playerX + 50 >= pointBX) && pointBY + 48 >= 690)
+                    else if ((playerX - Constants.PLAYERSIZE <= pointBX && playerX + Constants.PLAYERSIZE >= pointBX) && pointBY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(p.GetID());
                         ChangePoints(+LevelPoints * CurrentLevel * 10);
@@ -376,7 +400,7 @@ namespace CatchTheBagel
 
                     if (pointLY >= 690)
                         itemsToRemove.Add(l.GetID());
-                    else if ((playerX - 50 <= pointLX && playerX + 50 >= pointLX) && pointLY + 48 >= 690)
+                    else if ((playerX - Constants.PLAYERSIZE <= pointLX && playerX + Constants.PLAYERSIZE >= pointLX) && pointLY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(l.GetID());
                         LivesLeft += 1;
@@ -445,7 +469,7 @@ namespace CatchTheBagel
 
                     if (pointBY >= 690)
                         itemsToRemove.Add(b.GetID());
-                    else if ((playerX - 50 <= pointBX && playerX + 50 >= pointBX) && pointBY + 48 >= 690)
+                    else if ((playerX - Constants.PLAYERSIZE <= pointBX && playerX + Constants.PLAYERSIZE >= pointBX) && pointBY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
                         LivesLeft -= 1;
@@ -530,6 +554,12 @@ namespace CatchTheBagel
                 //TODO say you won or something, idk
             }
 
+            //TO TEST
+           /* if (BagelCount >= 100)
+            {
+                CurrentLevel = 4;
+                ChangeLevel();
+            }*/
         }
 
         /// <summary>
@@ -552,7 +582,8 @@ namespace CatchTheBagel
         /// Decides whether a boost can be added into the game
         /// </summary>
         /// <returns></returns>
-        public bool CanBoost() {
+        public bool CanBoost()
+        {
             int rand = rng.Next(2);
             return rand % 2 == 0;
         }

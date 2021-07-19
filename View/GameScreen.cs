@@ -104,6 +104,7 @@ namespace View
         {
             Console.WriteLine("timer was triggered");
             BagelTime.Stop();
+            BagelTime.Interval = 2000;
             BagelTime.Start();
 
             // decides whether to add a bagel
