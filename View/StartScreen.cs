@@ -57,8 +57,14 @@ namespace View
         /// <param name="e"></param>
         private void Start_Click(object sender, EventArgs e)
         {
+            //Player options
+            //Man Bagel = 0
+            //Ghostly Bagel = 1
+            //Beary Pink = 2
+            //Camper Duck = 3
+     
             //TODO:: See what player has been selected and draw that in the view
-            GameScreen view = new GameScreen();
+            GameScreen view = new GameScreen(this.comboBox_players.SelectedIndex);
             view.Show();
             view.Focus();
         }

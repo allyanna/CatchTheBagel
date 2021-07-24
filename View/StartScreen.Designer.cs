@@ -83,8 +83,8 @@ namespace View
             this.comboBox_players.Items.AddRange(new object[] {
             "Man Bagel",
             "Ghostly Bagel",
-            "Froggy Pink",
-            "Ducky"});
+            "Beary Pink",
+            "Camper Duck"});
             this.comboBox_players.Location = new System.Drawing.Point(239, 322);
             this.comboBox_players.Name = "comboBox_players";
             this.comboBox_players.Size = new System.Drawing.Size(300, 39);

@@ -21,15 +21,30 @@ namespace View
         /// <summary>
         /// Draws the world of the CatchTheBagel game for the view form
         /// </summary>
-        public GamePanel(Game game)
+        public GamePanel(Game game, int playerType)
         {
             DoubleBuffered = true; //tells that we need to repaint the panel
 
             //intialize all the images here
             bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\Bagel.png");
             lifeBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\life-booster.png");
-            pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\PointBooster.png");
+            pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\point-booster.png");
             playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\man-bagel.png");
+
+            if (playerType == 1)
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\ghost.png"); //todo
+            else if (playerType == 2)
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\beary-pink.png"); //todo
+            else if (playerType == 3)
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\camper-duck-cap.png"); //todo
+            else
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\man-bagel.png");
+            //Player options
+            //Man Bagel = 0
+            //Ghostly Bagel = 1
+            //Beary Pink = 2
+            // Ducky = 3
+
             badBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\BadBooster.png");
 
             this.game = game;

@@ -25,7 +25,7 @@ namespace View
         /* Updates all forms of boost*/
         Timer UpdateBoosts = new Timer();
 
-        public GameScreen()
+        public GameScreen(int playerType)
         {
             InitializeComponent();
 
@@ -39,7 +39,7 @@ namespace View
             BackColor = Color.Black;
 
             // Place and add the game panel components
-            gamePanel = new GamePanel(game);
+            gamePanel = new GamePanel(game, playerType);
             gamePanel.Location = new Point(0, 22); //TO mess with later
             gamePanel.Size = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
             gamePanel.BackColor = Color.FromArgb(242, 197, 61);
