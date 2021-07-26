@@ -71,17 +71,24 @@ namespace View
 
         private void BoostsUpdate(object sender, EventArgs e)
         {
-            //keep moving the items
-            game.MoveBagels();
-            game.MovePointBoost();
-            game.MoveLifeBoost();
-            game.MoveBadBoost();
+            UpdateBoosts.Stop();
+            UpdateBoosts.Interval = game.GetSpriteUpdateSpeed();
+            UpdateBoosts.Start();
 
-            //life booster and pointbooster
-            game.CheckBagels();
-            game.CheckPointBoost();
-            game.CheckLifeBoost();
-            game.CheckBadBoost();
+            if (!game.GetPauseGame())
+            {
+                //keep moving the items
+                game.MoveBagels();
+                game.MovePointBoost();
+                game.MoveLifeBoost();
+                game.MoveBadBoost();
+
+                //life booster and pointbooster
+                game.CheckBagels();
+                game.CheckPointBoost();
+                game.CheckLifeBoost();
+                game.CheckBadBoost();
+            }
         }
 
         /// <summary>
@@ -91,7 +98,8 @@ namespace View
         /// <param name="e"></param>
         private void NonBoostUpdate(object sender, EventArgs e)
         {
-            gamePanel.Invalidate(); //redraws the panel
+            if (!game.GetPauseGame())
+                gamePanel.Invalidate(); //redraws the panel
             // Player is called in game panel hmm
         }
 
@@ -102,19 +110,21 @@ namespace View
         /// <param name="e"></param>
         private void BagelTick(object sender, EventArgs e)
         {
-            Console.WriteLine("timer was triggered");
             BagelTime.Stop();
-            BagelTime.Interval = 2000;
+            BagelTime.Interval = game.GetBagelAddSpeed();
             BagelTime.Start();
 
             // decides whether to add a bagel
-            game.AddBagel();
 
-            //******************************
-            game.AddPointBoost();
-            game.AddLifeBoost();
-            game.AddBadBoost();
+            if (!game.GetPauseGame())
+            {
+                game.AddBagel();
 
+                //******************************
+                game.AddPointBoost();
+                game.AddLifeBoost();
+                game.AddBadBoost();
+            }
         }
 
         /// <summary>
@@ -124,24 +134,29 @@ namespace View
         /// <param name="e"></param>
         private void KeyDownPressed(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
-                game.MovePlayer("left");
+            if (!game.GetPauseGame())
+            {
+                if (e.KeyCode == Keys.Left)
+                    game.MovePlayer("left");
 
-            if (e.KeyCode == Keys.Right)
-                game.MovePlayer("right");
+                if (e.KeyCode == Keys.Right)
+                    game.MovePlayer("right");
 
-            if (e.KeyCode == Keys.Q)
-                this.Close();
+                if (e.KeyCode == Keys.Q)
+                    this.Close();
 
-            if (e.KeyCode == Keys.A)
-                game.MovePlayer("left");
+                if (e.KeyCode == Keys.A)
+                    game.MovePlayer("left");
 
-            if (e.KeyCode == Keys.D)
-                game.MovePlayer("right");
+                if (e.KeyCode == Keys.D)
+                    game.MovePlayer("right");
+            }
         }
 
         private void MouseClickedHandler(object sender, MouseEventArgs e)
         {
+            //TODO: if more features here (and pause game)
+
             // handle left click
             if (e.Button == MouseButtons.Left)
                 Console.WriteLine("Left button was clicked");
@@ -178,7 +193,12 @@ namespace View
             controlText.Append("Left Click:\tPoint Booster\n");
             controlText.Append("Right Click:\tclear bagels\n");
             controlText.Append("Q:\t\tQuit\n\n");
-            MessageBox.Show(controlText.ToString(), "Controls", MessageBoxButtons.OK);
+
+            game.SetPauseGame(true);
+            DialogResult result = MessageBox.Show(controlText.ToString(), "Controls", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+                game.SetPauseGame(false);
+
         }
 
         /// <summary>
@@ -200,7 +220,11 @@ namespace View
             aboutText.Append("Created by: Allyanna Boo\n");
             aboutText.Append("Last Modified: May 22, 2021\n\n");
 
-            MessageBox.Show(aboutText.ToString(), "About Catch the Bagel", MessageBoxButtons.OK);
+            game.SetPauseGame(true);
+            DialogResult result = MessageBox.Show(aboutText.ToString(), "About Catch the Bagel", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+                game.SetPauseGame(false);
         }
+
     }
 }

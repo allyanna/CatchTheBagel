@@ -38,6 +38,7 @@ namespace View
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hToolStripMenuItem});
@@ -45,7 +46,6 @@ namespace View
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1668, 52);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // hToolStripMenuItem
             // 
@@ -70,13 +70,13 @@ namespace View
             this.controlsToolStripMenuItem.Text = "Controls";
             this.controlsToolStripMenuItem.Click += new System.EventHandler(this.controlsToolStripMenuItem_Click);
             // 
-            // View
+            // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1668, 1413);
             this.Controls.Add(this.menuStrip1);
-            this.Name = "View";
+            this.Name = "GameScreen";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.view_Load);
             this.menuStrip1.ResumeLayout(false);

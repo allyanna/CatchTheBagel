@@ -14,6 +14,10 @@ namespace CatchTheBagel
         public const int SCREENSIZE = 900 - 25; //875
         public const int STARTLIVES = 3;
 
+        public const int MINX = 1;
+        public const int MAXX = 824;
+
+
         // points players earn at each level (can just increment in the game)
         public const int POINTSL1 = 5;
         public const int POINTSL2 = 10;
@@ -42,7 +46,7 @@ namespace CatchTheBagel
         public const int SPRITE_SPEED10 = 10;
 
         // add bagel speed
-        public const int ADD_BAGEL_SPEED1 = 3000;
+   /*     public const int ADD_BAGEL_SPEED1 = 3000;
         public const int ADD_BAGEL_SPEED2 = 2000;
         public const int ADD_BAGEL_SPEED3 = 2000;
         public const int ADD_BAGEL_SPEED4 = 2000;
@@ -51,9 +55,7 @@ namespace CatchTheBagel
         public const int ADD_BAGEL_SPEED7 = 2000;
         public const int ADD_BAGEL_SPEED8 = 2000;
         public const int ADD_BAGEL_SPEED9 = 2000;
-        public const int ADD_BAGEL_SPEED10 = 2000;
-
-
+        public const int ADD_BAGEL_SPEED10 = 2000;*/
 
         // number of point boosters (level 5 and up)
         public const int P_BOOST5 = 1;
@@ -81,5 +83,30 @@ namespace CatchTheBagel
         public const int B_BOOST10 = 3;
 
         // number of clear bagel boosters (level 5 and up) NOT SURE IF WANT TO DO
+
+        // speed of bagels being added 
+        public const int BAG_ADD_S1 = 3000;
+        public const int BAG_ADD_S2 = 2700;
+        public const int BAG_ADD_S3 = 2400;
+        public const int BAG_ADD_S4 = 2100;
+        public const int BAG_ADD_S5 = 1800;
+        public const int BAG_ADD_S6 = 1500;
+        public const int BAG_ADD_S7 = 1200;
+        public const int BAG_ADD_S8 = 900;
+        public const int BAG_ADD_S9 = 600;
+        public const int BAG_ADD_S10 = 300; 
+
+
+        // speed of bagel movement update
+        public const int BAG_UPDATE1 = 30;
+        public const int BAG_UPDATE2 = 29; 
+        public const int BAG_UPDATE3 = 28;
+        public const int BAG_UPDATE4 = 27; 
+        public const int BAG_UPDATE5 = 26;
+        public const int BAG_UPDATE6 = 25;
+        public const int BAG_UPDATE7 = 24;
+        public const int BAG_UPDATE8 = 23;
+        public const int BAG_UPDATE9 = 22;
+        public const int BAG_UPDATE10 = 21;
     }
 }

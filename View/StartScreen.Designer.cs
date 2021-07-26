@@ -38,6 +38,7 @@ namespace View
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exit_button = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,7 +103,6 @@ namespace View
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem});
@@ -118,28 +118,41 @@ namespace View
             this.aboutToolStripMenuItem,
             this.controlsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(104, 48);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(104, 45);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(296, 54);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // controlsToolStripMenuItem
             // 
             this.controlsToolStripMenuItem.Name = "controlsToolStripMenuItem";
-            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.controlsToolStripMenuItem.Size = new System.Drawing.Size(296, 54);
             this.controlsToolStripMenuItem.Text = "Controls";
             this.controlsToolStripMenuItem.Click += new System.EventHandler(this.controlsToolStripMenuItem_Click);
+            // 
+            // exit_button
+            // 
+            this.exit_button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.exit_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.exit_button.Location = new System.Drawing.Point(258, 621);
+            this.exit_button.Name = "exit_button";
+            this.exit_button.Size = new System.Drawing.Size(255, 99);
+            this.exit_button.TabIndex = 7;
+            this.exit_button.Text = "Exit";
+            this.exit_button.UseVisualStyleBackColor = true;
+            this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
             // StartScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 800);
+            this.Controls.Add(this.exit_button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox_players);
             this.Controls.Add(this.button2);
@@ -167,5 +180,6 @@ namespace View
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlsToolStripMenuItem;
+        private System.Windows.Forms.Button exit_button;
     }
 }
