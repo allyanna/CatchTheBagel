@@ -23,8 +23,7 @@ namespace CatchTheBagel
         private int BagelAddSpeed;
         private int SpriteUpdateSpeed;
 
-        // keeps track of how many boosts a level can have
-        // and how many are left that will spawn
+        // tracks how many boosts a level can use
         private int PBoostCounts;
         private int LBoostCounts;
         private int BBoostCounts;
@@ -36,8 +35,9 @@ namespace CatchTheBagel
         private int IDBBooster;
 
         // checks
-        public bool PauseGame;
-        public bool WonGame;
+        private bool PauseGame;
+        private bool WonGame;
+        private bool DsplyLvlChnge;
 
         Random rng = new Random();
 
@@ -46,7 +46,6 @@ namespace CatchTheBagel
         public Dictionary<int, Bagel> AllBagels { get; set; }
         public Dictionary<int, LifeBooster> AllLBoosters { get; set; }
         public Dictionary<int, BadBooster> AllBBoosters { get; set; }
-
 
         private Player player;
 
@@ -81,6 +80,7 @@ namespace CatchTheBagel
 
             PauseGame = false;
             WonGame = false;
+            DsplyLvlChnge = true;
 
             player = new Player(0, 0, 680); //start player on the left TODO
         }
@@ -248,7 +248,18 @@ namespace CatchTheBagel
             this.BBoostCounts = BBoostCount;
 
             PlayerSpeed = PlayerSpeed + 1;
+            DsplyLvlChnge = true;
 
+        }
+
+        public bool GetDsplyLvlChnge()
+        {
+            return DsplyLvlChnge;
+        }
+
+        public void SetDsplyLvlChnge(bool set)
+        {
+            DsplyLvlChnge = set;
         }
 
         /// <summary>
@@ -283,7 +294,7 @@ namespace CatchTheBagel
 
             AllBagels.Add(IDBagel, new Bagel(IDBagel, randX, 0));
             this.IDBagel++;
-
+            DsplyLvlChnge = false; //TODO
         }
 
         /// <summary>
@@ -330,16 +341,18 @@ namespace CatchTheBagel
                     if (bagelY >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
-                        if(!CheckGameOver() && !GetWonGame())
-                        SetLife(-1);
+                        if (!CheckGameOver() && !GetWonGame())
+                            SetLife(-1);
                     }
                     else if ((playerX - Constants.PLAYERSIZE <= bagelX && playerX + Constants.PLAYERSIZE >= bagelX) && bagelY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
                         if (!CheckGameOver() && !GetWonGame())
+                        {
                             ChangePoints(+LevelPoints);
-                        // helps with leveling up
-                        BagelCount++;
+                            // helps with leveling up
+                            BagelCount++;
+                        }
                     }
                 }
             }
@@ -360,7 +373,7 @@ namespace CatchTheBagel
         {
             int randX = rng.Next(Constants.MINX, Constants.MAXX);
 
-            //TODO: check level, whether if it has a point boost or not
+            // check level, whether if it has a point boost or not
             if (LevelPoints >= 4 && PBoostCounts > 0 && CanBoost())
             {
                 AllPBoosters.Add(IDPBooster, new PointBooster(IDPBooster, randX, 0));
@@ -574,41 +587,23 @@ namespace CatchTheBagel
         {
 
             if (BagelCount == 15 && CurrentLevel == 1)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 30 && CurrentLevel == 2)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 45 && CurrentLevel == 3)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 60 && CurrentLevel == 4)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 75 && CurrentLevel == 5)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 90 && CurrentLevel == 6)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 105 && CurrentLevel == 7)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 120 && CurrentLevel == 8)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount == 135 && CurrentLevel == 9)
-            {
                 ChangeLevel();
-            }
             else if (BagelCount >= 150)
             {
                 CurrentLevel++;
@@ -631,12 +626,11 @@ namespace CatchTheBagel
         {
             if (LivesLeft <= 0)
             {
-                // TODO: clear all dictionaries
                 BagelAddSpeed = 800;
                 return true;
             }
 
-            CheckLevelUp(); //TODO: not sure where to put this for now
+            CheckLevelUp(); // *Checked here for now
             return false;
         }
 

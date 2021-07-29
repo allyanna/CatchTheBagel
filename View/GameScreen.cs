@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,8 +39,6 @@ namespace View
             // Set the window size
             ClientSize = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
             this.CenterToScreen();
-
-            // set the back color of the game
             BackColor = Color.Black;
 
             // Place and add the game panel components
@@ -46,7 +46,6 @@ namespace View
             gamePanel.Location = new Point(0, 22); //TO mess with later
             gamePanel.Size = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
             gamePanel.BackColor = Color.LightBlue;
-            //Color.FromArgb(242, 197, 61);
             this.Controls.Add(gamePanel);
             this.Text = "Catch the Bagel";
 
@@ -71,8 +70,6 @@ namespace View
             BadTime.Start();
             BadTime.Tick += BadTick;
 
-
-
             // Update the player and things unrelated to boosts
             UpdatePlayers.Interval = 10;
             UpdatePlayers.Start();
@@ -83,8 +80,10 @@ namespace View
             UpdateBoosts.Start();
             UpdateBoosts.Tick += BoostsUpdate;
 
-
         }
+
+
+
 
         private void BadTick(object sender, EventArgs e)
         {
@@ -123,6 +122,7 @@ namespace View
                 game.MoveLifeBoost();
                 game.MoveBadBoost();
                 game.CheckBagels();
+
                 //life booster and pointbooster
                 if (!game.CheckGameOver() && !game.GetWonGame())
                 {
@@ -141,8 +141,7 @@ namespace View
         private void NonBoostUpdate(object sender, EventArgs e)
         {
             if (!game.GetPauseGame())
-                gamePanel.Invalidate(); //redraws the panel
-            // Player is called in game panel hmm
+                gamePanel.Invalidate(); 
         }
 
         /// <summary>
@@ -156,10 +155,10 @@ namespace View
             BagelTime.Interval = game.GetBagelAddSpeed();
             BagelTime.Start();
 
-            // decides whether to add a bagel
-
             if (!game.GetPauseGame())
+            {
                 game.AddBagel();
+            }
         }
 
         /// <summary>
@@ -198,15 +197,13 @@ namespace View
 
         private void MouseClickedHandler(object sender, MouseEventArgs e)
         {
-            //TODO: if more features here (and pause game)
-
             // handle left click
-            if (e.Button == MouseButtons.Left)
-                Console.WriteLine("Left button was clicked");
+       /*     if (e.Button == MouseButtons.Left)
+                Console.WriteLine("Left button was clicked");*/
 
             // handle right click
-            if (e.Button == MouseButtons.Right)
-                Console.WriteLine("Right button was clicked");
+      /*      if (e.Button == MouseButtons.Right)
+                Console.WriteLine("Right button was clicked");*/
         }
 
 
@@ -232,7 +229,9 @@ namespace View
             StringBuilder controlText = new StringBuilder();
             controlText.Append("Controls\n");
             controlText.Append("A:\t\tMove Left\n");
+            controlText.Append("Left:\t\tMove Left\n");
             controlText.Append("D:\t\tMove Right\n");
+            controlText.Append("Right:\t\tMove Right\n");
             controlText.Append("Space:\t\tPause\n");
        /*     controlText.Append("Left Click:\tPoint Booster\n");
             controlText.Append("Right Click:\tclear bagels\n");*/
@@ -278,6 +277,5 @@ namespace View
             else
                 game.SetPauseGame(true);
         }
-
     }
 }

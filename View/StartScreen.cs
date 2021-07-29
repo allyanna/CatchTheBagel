@@ -44,7 +44,9 @@ namespace View
             StringBuilder controlText = new StringBuilder();
             controlText.Append("Controls\n");
             controlText.Append("A:\t\tMove Left\n");
+            controlText.Append("Left:\t\tMove Left\n");
             controlText.Append("D:\t\tMove Right\n");
+            controlText.Append("Right:\t\tMove Right\n");
             controlText.Append("Space:\t\tPause\n");
             /*     controlText.Append("Left Click:\tPoint Booster\n");
                  controlText.Append("Right Click:\tclear bagels\n");*/
@@ -76,6 +78,5 @@ namespace View
             this.Close();
         }
 
-   
     }
 }

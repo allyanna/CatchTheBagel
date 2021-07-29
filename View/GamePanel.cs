@@ -176,6 +176,20 @@ namespace View
         }
 
         /// <summary>
+        /// Draws the new level
+        /// </summary>
+        /// <param name="e"></param>
+        private void DrawLevelLabel(Object o, PaintEventArgs e)
+        {
+            Game g = o as Game;
+            using (System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
+            {
+                Font font = new Font("Cambria", 30, FontStyle.Bold);
+                e.Graphics.DrawString("LEVEL: " + game.GetCurrentLevel() , font, blackBrush, 315, 350);
+            }
+        }
+
+        /// <summary>
         /// This method invokes when the GamePanel needs to be re-drawn
         /// </summary>
         /// <param name="e">The PaintEventArgs to access the graphics</param>
@@ -218,6 +232,10 @@ namespace View
                     DrawGround(new object(), e);
                     lock (game.GetPlayer())
                         DrawPlayer(game.GetPlayer(), e);
+                    if (game.GetDsplyLvlChnge())
+                    {
+                        DrawLevelLabel(game,e);
+                    }
                 }
             }
             else

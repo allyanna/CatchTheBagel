@@ -73,28 +73,28 @@ namespace CatchTheBagel
         // number of clear bagel boosters (level 5 and up) NOT SURE IF WANT TO DO
 
         // speed of bagels being added 
-        public const int BAG_ADD_S1 = 2800;
-        public const int BAG_ADD_S2 = 2600;
-        public const int BAG_ADD_S3 = 2400;
-        public const int BAG_ADD_S4 = 2200;
-        public const int BAG_ADD_S5 = 2000;
-        public const int BAG_ADD_S6 = 1800;
-        public const int BAG_ADD_S7 = 1600;
-        public const int BAG_ADD_S8 = 1400;
-        public const int BAG_ADD_S9 = 1200;
-        public const int BAG_ADD_S10 = 1000;
+        public const int BAG_ADD_S1 = 2700;
+        public const int BAG_ADD_S2 = 2500;
+        public const int BAG_ADD_S3 = 2300;
+        public const int BAG_ADD_S4 = 2100;
+        public const int BAG_ADD_S5 = 1900;
+        public const int BAG_ADD_S6 = 1700;
+        public const int BAG_ADD_S7 = 1500;
+        public const int BAG_ADD_S8 = 1300;
+        public const int BAG_ADD_S9 = 1100;
+        public const int BAG_ADD_S10 = 900;
 
 
         // speed of bagel movement update
-        public const int BAG_UPDATE1 = 30;
-        public const int BAG_UPDATE2 = 29;
-        public const int BAG_UPDATE3 = 28;
-        public const int BAG_UPDATE4 = 27;
-        public const int BAG_UPDATE5 = 26;
-        public const int BAG_UPDATE6 = 25;
-        public const int BAG_UPDATE7 = 24;
-        public const int BAG_UPDATE8 = 23;
-        public const int BAG_UPDATE9 = 22;
-        public const int BAG_UPDATE10 = 21;
+        public const int BAG_UPDATE1 = 28;
+        public const int BAG_UPDATE2 = 27;
+        public const int BAG_UPDATE3 = 26;
+        public const int BAG_UPDATE4 = 25;
+        public const int BAG_UPDATE5 = 24;
+        public const int BAG_UPDATE6 = 23;
+        public const int BAG_UPDATE7 = 22;
+        public const int BAG_UPDATE8 = 21;
+        public const int BAG_UPDATE9 = 20;
+        public const int BAG_UPDATE10 = 19;
     }
 }

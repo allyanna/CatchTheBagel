@@ -84,6 +84,10 @@
     <Content Include="Sprites\plain-bagel.png" />
     <Content Include="Sprites\point-booster.png" />
     <Content Include="Sprites\sugar-donut.png" />
+    <Content Include="Wavs\mixkit-arcade-space-shooter-dead-notification-272.wav" />
+    <Content Include="Wavs\mixkit-explainer-video-game-alert-sweep-236.wav" />
+    <Content Include="Wavs\mixkit-extra-bonus-in-a-video-game-2045.wav" />
+    <Content Include="Wavs\mixkit-player-boost-recharging-2040.wav" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
