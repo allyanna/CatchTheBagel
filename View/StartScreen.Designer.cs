@@ -29,6 +29,7 @@ namespace View
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartScreen));
             this.Title_Label = new System.Windows.Forms.Label();
             this.Start = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -41,7 +42,9 @@ namespace View
             this.exit_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.bagelType_comboBox = new System.Windows.Forms.ComboBox();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
             this.SuspendLayout();
             // 
             // Title_Label
@@ -50,15 +53,16 @@ namespace View
             this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Title_Label.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Title_Label.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Title_Label.Location = new System.Drawing.Point(0, 49);
+            this.Title_Label.Location = new System.Drawing.Point(0, 60);
             this.Title_Label.Name = "Title_Label";
-            this.Title_Label.Size = new System.Drawing.Size(800, 751);
+            this.Title_Label.Size = new System.Drawing.Size(800, 740);
             this.Title_Label.TabIndex = 0;
             this.Title_Label.Text = "Catch the Bagel";
             this.Title_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Start
             // 
+            this.Start.BackColor = System.Drawing.Color.White;
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Start.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Start.Location = new System.Drawing.Point(258, 487);
@@ -66,7 +70,7 @@ namespace View
             this.Start.Size = new System.Drawing.Size(255, 99);
             this.Start.TabIndex = 1;
             this.Start.Text = "Start";
-            this.Start.UseVisualStyleBackColor = true;
+            this.Start.UseVisualStyleBackColor = false;
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
             // button2
@@ -80,7 +84,7 @@ namespace View
             // 
             // comboBox_players
             // 
-            this.comboBox_players.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_players.BackColor = System.Drawing.Color.White;
             this.comboBox_players.ForeColor = System.Drawing.SystemColors.WindowText;
             this.comboBox_players.FormattingEnabled = true;
             this.comboBox_players.Items.AddRange(new object[] {
@@ -111,7 +115,7 @@ namespace View
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 49);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 60);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -140,6 +144,7 @@ namespace View
             // 
             // exit_button
             // 
+            this.exit_button.BackColor = System.Drawing.Color.White;
             this.exit_button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.exit_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.exit_button.Location = new System.Drawing.Point(258, 621);
@@ -147,7 +152,7 @@ namespace View
             this.exit_button.Size = new System.Drawing.Size(255, 99);
             this.exit_button.TabIndex = 7;
             this.exit_button.Text = "Exit";
-            this.exit_button.UseVisualStyleBackColor = true;
+            this.exit_button.UseVisualStyleBackColor = false;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
             // label2
@@ -162,7 +167,7 @@ namespace View
             // 
             // bagelType_comboBox
             // 
-            this.bagelType_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bagelType_comboBox.BackColor = System.Drawing.Color.White;
             this.bagelType_comboBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.bagelType_comboBox.FormattingEnabled = true;
             this.bagelType_comboBox.Items.AddRange(new object[] {
@@ -175,11 +180,22 @@ namespace View
             this.bagelType_comboBox.Size = new System.Drawing.Size(388, 39);
             this.bagelType_comboBox.TabIndex = 9;
             // 
+            // pictureBox16
+            // 
+            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
+            this.pictureBox16.Location = new System.Drawing.Point(27, 604);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(70, 70);
+            this.pictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox16.TabIndex = 28;
+            this.pictureBox16.TabStop = false;
+            // 
             // StartScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 800);
+            this.Controls.Add(this.pictureBox16);
             this.Controls.Add(this.bagelType_comboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.exit_button);
@@ -194,6 +210,7 @@ namespace View
             this.Text = "Catch the Bagel";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,5 +230,6 @@ namespace View
         private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox bagelType_comboBox;
+        private System.Windows.Forms.PictureBox pictureBox16;
     }
 }

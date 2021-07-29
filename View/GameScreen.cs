@@ -186,6 +186,14 @@ namespace View
                 if (e.KeyCode == Keys.D)
                     game.MovePlayer("right");
             }
+
+            if (e.KeyCode == Keys.Space)
+            {
+                if (game.GetPauseGame())
+                    game.SetPauseGame(false);
+                else
+                    game.SetPauseGame(true);
+            }
         }
 
         private void MouseClickedHandler(object sender, MouseEventArgs e)
@@ -225,8 +233,9 @@ namespace View
             controlText.Append("Controls\n");
             controlText.Append("A:\t\tMove Left\n");
             controlText.Append("D:\t\tMove Right\n");
-            controlText.Append("Left Click:\tPoint Booster\n");
-            controlText.Append("Right Click:\tclear bagels\n");
+            controlText.Append("Space:\t\tPause\n");
+       /*     controlText.Append("Left Click:\tPoint Booster\n");
+            controlText.Append("Right Click:\tclear bagels\n");*/
             controlText.Append("Q:\t\tQuit\n\n");
 
             game.SetPauseGame(true);

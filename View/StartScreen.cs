@@ -19,6 +19,7 @@ namespace View
             this.CenterToScreen();
             this.comboBox_players.SelectedIndex = 0;
             this.bagelType_comboBox.SelectedIndex = 1;
+            this.BackColor = Color.LightPink;
 
         }
 
@@ -45,8 +46,9 @@ namespace View
             controlText.Append("Controls\n");
             controlText.Append("A:\t\tMove Left\n");
             controlText.Append("D:\t\tMove Right\n");
-            controlText.Append("Left Click:\tPoint Booster\n");
-            controlText.Append("Right Click:\tclear bagels\n");
+            controlText.Append("Space:\t\tPause\n");
+            /*     controlText.Append("Left Click:\tPoint Booster\n");
+                 controlText.Append("Right Click:\tclear bagels\n");*/
             controlText.Append("Q:\t\tQuit\n\n");
             MessageBox.Show(controlText.ToString(), "Controls", MessageBoxButtons.OK);
         }
