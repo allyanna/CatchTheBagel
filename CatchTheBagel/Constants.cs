@@ -30,7 +30,7 @@ namespace CatchTheBagel
         public const int POINTSL9 = 45;
         public const int POINTSL10 = 50;
 
-        // player speeds **********maybe leave these as incremental in game
+        // player speeds (incremented)
         public const int INITIAL_P_SPEED = 10;
 
         // sprite speeds
@@ -64,11 +64,11 @@ namespace CatchTheBagel
 
         // numhber of bad boosters (level 5 and up)
         public const int B_BOOST5 = 1;
-        public const int B_BOOST6 = 1;
-        public const int B_BOOST7 = 1;
-        public const int B_BOOST8 = 2;
+        public const int B_BOOST6 = 2;
+        public const int B_BOOST7 = 2;
+        public const int B_BOOST8 = 3;
         public const int B_BOOST9 = 3;
-        public const int B_BOOST10 = 3;
+        public const int B_BOOST10 = 4;
 
         // number of clear bagel boosters (level 5 and up) NOT SURE IF WANT TO DO
 

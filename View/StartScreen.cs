@@ -19,8 +19,6 @@ namespace View
             this.CenterToScreen();
             this.comboBox_players.SelectedIndex = 0;
             this.bagelType_comboBox.SelectedIndex = 1;
-            this.BackColor = Color.LightPink;
-
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,14 +26,15 @@ namespace View
             StringBuilder aboutText = new StringBuilder();
             aboutText.Append("About\n\n");
             aboutText.Append("How does this Catch the Bagel game work??\n");
-            aboutText.Append("A player has the ability to move from left to right to collect bagels, point boosters, life boosters, " +
-                "as well as items that are deemed detrimental to the player.\n\n");
+            aboutText.Append("A player has the ability to move from left to right to collect bagels, point boosters (cat), life boosters (fairy), " +
+                "as well as items (squiggly emote) that are deemed detrimental to the player.\n\n");
             aboutText.Append("The game has 10 levels, for every increasing level, the bagels fall increasingly faster " +
                 "and the amount of points earned increases.\n\n");
             aboutText.Append("Additionally, all bagels must be caught in order to maintain the amount of lives you start with. " +
                 "Otherwise, your lives get increasingly lower until the game is over.\n\n");
             aboutText.Append("Created by: Allyanna Boo\n");
-            aboutText.Append("Last Modified: May 22, 2021\n\n");
+            aboutText.Append("First Modified: May 22, 2021\n");
+            aboutText.Append("Last Modified: July 28, 2021\n\n");
 
             MessageBox.Show(aboutText.ToString(), "About Catch the Bagel", MessageBoxButtons.OK);
         }
