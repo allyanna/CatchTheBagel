@@ -39,6 +39,8 @@ namespace View
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exit_button = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.bagelType_comboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@ namespace View
             // 
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Start.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.Start.Location = new System.Drawing.Point(258, 472);
+            this.Start.Location = new System.Drawing.Point(258, 487);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(255, 99);
             this.Start.TabIndex = 1;
@@ -86,7 +88,7 @@ namespace View
             "Ghostly Bagel",
             "Beary Pink",
             "Camper Duck"});
-            this.comboBox_players.Location = new System.Drawing.Point(239, 322);
+            this.comboBox_players.Location = new System.Drawing.Point(238, 238);
             this.comboBox_players.Name = "comboBox_players";
             this.comboBox_players.Size = new System.Drawing.Size(300, 39);
             this.comboBox_players.TabIndex = 4;
@@ -94,7 +96,7 @@ namespace View
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(203, 215);
+            this.label1.Location = new System.Drawing.Point(203, 155);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(368, 80);
             this.label1.TabIndex = 5;
@@ -103,6 +105,7 @@ namespace View
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem});
@@ -147,11 +150,38 @@ namespace View
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label2.Location = new System.Drawing.Point(128, 299);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(525, 80);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Choose your bagel of your choice or perhaps donut:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bagelType_comboBox
+            // 
+            this.bagelType_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bagelType_comboBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.bagelType_comboBox.FormattingEnabled = true;
+            this.bagelType_comboBox.Items.AddRange(new object[] {
+            "Plain Bagel",
+            "Cheese & Jalapeño Bagel",
+            "Bart Donut",
+            "Sugar Donut"});
+            this.bagelType_comboBox.Location = new System.Drawing.Point(194, 397);
+            this.bagelType_comboBox.Name = "bagelType_comboBox";
+            this.bagelType_comboBox.Size = new System.Drawing.Size(388, 39);
+            this.bagelType_comboBox.TabIndex = 9;
+            // 
             // StartScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 800);
+            this.Controls.Add(this.bagelType_comboBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.exit_button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox_players);
@@ -181,5 +211,7 @@ namespace View
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlsToolStripMenuItem;
         private System.Windows.Forms.Button exit_button;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox bagelType_comboBox;
     }
 }

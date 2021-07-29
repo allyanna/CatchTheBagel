@@ -21,7 +21,7 @@ namespace View
         /// <summary>
         /// Draws the world of the CatchTheBagel game for the view form
         /// </summary>
-        public GamePanel(Game game, int playerType)
+        public GamePanel(Game game, int playerType, int bagelType)
         {
             DoubleBuffered = true; //tells that we need to repaint the panel
 
@@ -29,23 +29,23 @@ namespace View
             bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\Bagel.png");
             lifeBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\life-booster.png");
             pointBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\point-booster.png");
+            badBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\BadBooster.png");
             playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\man-bagel.png");
 
             if (playerType == 1)
-                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\ghost.png"); //todo
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\ghost.png");
             else if (playerType == 2)
-                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\beary-pink.png"); //todo
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\beary-pink.png");
             else if (playerType == 3)
-                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\camper-duck-cap.png"); //todo
-            else
-                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\man-bagel.png");
-            //Player options
-            //Man Bagel = 0
-            //Ghostly Bagel = 1
-            //Beary Pink = 2
-            // Ducky = 3
+                playerImg = Image.FromFile("..\\..\\..\\Resources\\Sprites\\camper-duck-cap.png");
 
-            badBooster = Image.FromFile("..\\..\\..\\Resources\\Sprites\\BadBooster.png");
+            if (bagelType == 0)
+                bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\plain-bagel.png");
+            else if (bagelType == 2)
+                bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\bart-donut.png");
+            else if (bagelType == 3)
+                bagel = Image.FromFile("..\\..\\..\\Resources\\Sprites\\sugar-donut.png");
+
 
             this.game = game;
 
@@ -63,12 +63,6 @@ namespace View
         {
             Player p = o as Player;
             e.Graphics.DrawImage(playerImg, new PointF(p.GetPointX(), p.GetPointY()));
-            // TODO: some work needed
-            /*       using (System.Drawing.SolidBrush white = new System.Drawing.SolidBrush(Color.White))
-                   {
-                       Rectangle r = new Rectangle(p.GetPointX(), p.GetPointY(), 50, 50);
-                       e.Graphics.FillRectangle(white, r);
-                   }*/
         }
 
         /// <summary>
@@ -116,8 +110,6 @@ namespace View
             e.Graphics.DrawImage(badBooster, new PointF(b.GetPointX(), b.GetPointY()));
         }
 
-
-
         /// <summary>
         /// Draws the label when it is time to be re-drawn
         /// </summary>
@@ -161,11 +153,27 @@ namespace View
                 Font font = new Font("Cambria", 30, FontStyle.Bold);
                 Font font2 = new Font("Cambria", 20, FontStyle.Bold);
                 e.Graphics.DrawString("GAME OVER", font, blackBrush, 315, 350);
-                /*     e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 315, 400);
-                     e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 315, 450);*/
+                e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 325, 400);
+                e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 325, 450);
             }
         }
 
+        /// <summary>
+        /// Draws the you won screen
+        /// </summary>
+        /// <param name="e"></param>
+        private void DrawYouWonLabel(Object o, PaintEventArgs e)
+        {
+            Game g = o as Game;
+            using (System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
+            {
+                Font font = new Font("Cambria", 30, FontStyle.Bold);
+                Font font2 = new Font("Cambria", 20, FontStyle.Bold);
+                e.Graphics.DrawString("YOU WON!", font, blackBrush, 315, 350);
+                e.Graphics.DrawString("You collected: " + game.getBagelCount(), font2, blackBrush, 325, 400);
+                e.Graphics.DrawString("You Scored: " + game.GetPoints(), font2, blackBrush, 325, 450);
+            }
+        }
 
         /// <summary>
         /// This method invokes when the GamePanel needs to be re-drawn
@@ -176,8 +184,6 @@ namespace View
 
             if (!game.CheckGameOver())
             {
-                lock (game.GetPlayer())
-                    DrawPlayer(game.GetPlayer(), e);
 
                 lock (game.AllBagels)
                 {
@@ -203,8 +209,16 @@ namespace View
                         DrawBadBooster(b, e);
                 }
 
-                DrawLabel(game, e);
-                DrawGround(new object(), e); //In the works
+                if (game.GetWonGame()) {
+                    DrawYouWonLabel(game, e);
+                }
+                else
+                {
+                    DrawLabel(game, e);
+                    DrawGround(new object(), e);
+                    lock (game.GetPlayer())
+                        DrawPlayer(game.GetPlayer(), e);
+                }
             }
             else
             {

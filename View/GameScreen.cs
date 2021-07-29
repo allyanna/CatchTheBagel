@@ -18,14 +18,17 @@ namespace View
         Game game;
         GamePanel gamePanel;
 
-        /* Tracks when to move positions and repaint items */
+        /* Tracks whent to add things */
         Timer BagelTime = new Timer();
-        /* Creates a smoother transition to updating */
+        Timer PointTime = new Timer();
+        Timer LifeTime = new Timer();
+        Timer BadTime = new Timer();
+
+        /* Updates */
         Timer UpdatePlayers = new Timer();
-        /* Updates all forms of boost*/
         Timer UpdateBoosts = new Timer();
 
-        public GameScreen(int playerType)
+        public GameScreen(int playerType, int bagelType)
         {
             InitializeComponent();
 
@@ -39,10 +42,11 @@ namespace View
             BackColor = Color.Black;
 
             // Place and add the game panel components
-            gamePanel = new GamePanel(game, playerType);
+            gamePanel = new GamePanel(game, playerType, bagelType);
             gamePanel.Location = new Point(0, 22); //TO mess with later
             gamePanel.Size = new Size(Constants.SCREENSIZE, Constants.SCREENSIZE);
-            gamePanel.BackColor = Color.FromArgb(242, 197, 61);
+            gamePanel.BackColor = Color.LightBlue;
+            //Color.FromArgb(242, 197, 61);
             this.Controls.Add(gamePanel);
             this.Text = "Catch the Bagel";
 
@@ -51,9 +55,22 @@ namespace View
             gamePanel.MouseClick += MouseClickedHandler;
 
             // Handles the intervals of movements needed
-            BagelTime.Interval = 3000;
+            BagelTime.Interval = Constants.BAG_ADD_S1;
             BagelTime.Start();
             BagelTime.Tick += BagelTick;
+
+            PointTime.Interval = 5000;
+            PointTime.Start();
+            PointTime.Tick += PointTick;
+
+            LifeTime.Interval = 7000;
+            LifeTime.Start();
+            LifeTime.Tick += LifeTick;
+
+            BadTime.Interval = 8000;
+            BadTime.Start();
+            BadTime.Tick += BadTick;
+
 
 
             // Update the player and things unrelated to boosts
@@ -69,6 +86,29 @@ namespace View
 
         }
 
+        private void BadTick(object sender, EventArgs e)
+        {
+            if (!game.GetPauseGame() && !game.CheckGameOver())
+                game.AddBadBoost();
+        }
+
+        private void LifeTick(object sender, EventArgs e)
+        {
+            if (!game.GetPauseGame() && !game.CheckGameOver())
+                game.AddLifeBoost();
+        }
+
+        private void PointTick(object sender, EventArgs e)
+        {
+            if (!game.GetPauseGame() && !game.CheckGameOver())
+                game.AddPointBoost();
+        }
+
+        /// <summary>
+        /// Moves all boosts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BoostsUpdate(object sender, EventArgs e)
         {
             UpdateBoosts.Stop();
@@ -82,12 +122,14 @@ namespace View
                 game.MovePointBoost();
                 game.MoveLifeBoost();
                 game.MoveBadBoost();
-
-                //life booster and pointbooster
                 game.CheckBagels();
-                game.CheckPointBoost();
-                game.CheckLifeBoost();
-                game.CheckBadBoost();
+                //life booster and pointbooster
+                if (!game.CheckGameOver() && !game.GetWonGame())
+                {
+                    game.CheckPointBoost();
+                    game.CheckLifeBoost();
+                    game.CheckBadBoost();
+                }
             }
         }
 
@@ -117,14 +159,7 @@ namespace View
             // decides whether to add a bagel
 
             if (!game.GetPauseGame())
-            {
                 game.AddBagel();
-
-                //******************************
-                game.AddPointBoost();
-                game.AddLifeBoost();
-                game.AddBadBoost();
-            }
         }
 
         /// <summary>
@@ -224,6 +259,14 @@ namespace View
             DialogResult result = MessageBox.Show(aboutText.ToString(), "About Catch the Bagel", MessageBoxButtons.OK);
             if (result == DialogResult.OK)
                 game.SetPauseGame(false);
+        }
+
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (game.GetPauseGame())
+                game.SetPauseGame(false);
+            else
+                game.SetPauseGame(true);
         }
 
     }

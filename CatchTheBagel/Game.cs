@@ -26,7 +26,7 @@ namespace CatchTheBagel
         // keeps track of how many boosts a level can have
         // and how many are left that will spawn
         private int PBoostCounts;
-        private int LBoostsCounts;
+        private int LBoostCounts;
         private int BBoostCounts;
 
         //declare id's here so they can be used
@@ -35,8 +35,9 @@ namespace CatchTheBagel
         private int IDBagel;
         private int IDBBooster;
 
-        // determines if a game is paused or not
+        // checks
         public bool PauseGame;
+        public bool WonGame;
 
         Random rng = new Random();
 
@@ -53,12 +54,12 @@ namespace CatchTheBagel
         {
             LivesLeft = Constants.STARTLIVES;
             PBoostCounts = 0;
-            LBoostsCounts = 0;
+            LBoostCounts = 0;
             BBoostCounts = 0;
 
             CurrentPoints = 0;
             CurrentLevel = 1;
-            BagelCount = 0; ///TO TEST
+            BagelCount = 0;
 
             LevelPoints = Constants.POINTSL1;
             PlayerSpeed = Constants.INITIAL_P_SPEED;
@@ -79,8 +80,18 @@ namespace CatchTheBagel
             AllBBoosters = new Dictionary<int, BadBooster>();
 
             PauseGame = false;
+            WonGame = false;
 
             player = new Player(0, 0, 680); //start player on the left TODO
+        }
+
+        /// <summary>
+        /// Returns whether you won the game
+        /// </summary>
+        /// <returns></returns>
+        public bool GetWonGame()
+        {
+            return WonGame;
         }
 
         /// <summary>
@@ -170,91 +181,74 @@ namespace CatchTheBagel
         public void ChangeLevel()
         {
             CurrentLevel += 1;
-            PlayerSpeed += 2; //TODO: how fast you want to increase the speed
-
             switch (CurrentLevel)
             {
                 case 2:
-                    LevelPoints = Constants.POINTSL2;
-                    SpriteSpeed = Constants.SPRITE_SPEED2;
-                    BagelAddSpeed = Constants.BAG_ADD_S2;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE2;
+                    UpdateFields(Constants.POINTSL2, Constants.SPRITE_SPEED2, Constants.BAG_ADD_S2, Constants.BAG_UPDATE2, 0, 0, 0);
                     break;
                 case 3:
-                    LevelPoints = Constants.POINTSL3;
-                    SpriteSpeed = Constants.SPRITE_SPEED3;
-                    BagelAddSpeed = Constants.BAG_ADD_S3;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE3;
+                    UpdateFields(Constants.POINTSL3, Constants.SPRITE_SPEED3, Constants.BAG_ADD_S3, Constants.BAG_UPDATE3, 0, 0, 0);
                     break;
                 case 4:
-                    LevelPoints = Constants.POINTSL4;
-                    SpriteSpeed = Constants.SPRITE_SPEED4;
-                    BagelAddSpeed = Constants.BAG_ADD_S4;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE4;
+                    UpdateFields(Constants.POINTSL4, Constants.SPRITE_SPEED4, Constants.BAG_ADD_S4, Constants.BAG_UPDATE4, 0, 0, 0);
                     break;
                 case 5:
-                    LevelPoints = Constants.POINTSL5;
-                    SpriteSpeed = Constants.SPRITE_SPEED5;
-                    BagelAddSpeed = Constants.BAG_ADD_S5;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE5;
-                    BagelAddSpeed = Constants.BAG_ADD_S5;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE5;
-                    // boosts
-                    PBoostCounts = Constants.P_BOOST5;
-                    LBoostsCounts = Constants.L_BOOST5;
-                    BBoostCounts = Constants.B_BOOST5;
+                    UpdateFields(Constants.POINTSL5, Constants.SPRITE_SPEED5, Constants.BAG_ADD_S5, Constants.BAG_UPDATE5, Constants.P_BOOST5, Constants.L_BOOST5, Constants.B_BOOST5);
                     break;
                 case 6:
-                    LevelPoints = Constants.POINTSL6;
-                    SpriteSpeed = Constants.SPRITE_SPEED6;
-                    BagelAddSpeed = Constants.BAG_ADD_S6;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE6;
-                    // boosts
-                    PBoostCounts = Constants.P_BOOST6;
-                    LBoostsCounts = Constants.L_BOOST6;
-                    BBoostCounts = Constants.B_BOOST6;
+                    UpdateFields(Constants.POINTSL6, Constants.SPRITE_SPEED6, Constants.BAG_ADD_S6, Constants.BAG_UPDATE6, Constants.P_BOOST6, Constants.L_BOOST6, Constants.B_BOOST6);
                     break;
                 case 7:
-                    LevelPoints = Constants.POINTSL7;
-                    SpriteSpeed = Constants.SPRITE_SPEED7;
-                    BagelAddSpeed = Constants.BAG_ADD_S7;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE7;
-                    // boosts
-                    PBoostCounts = Constants.P_BOOST7;
-                    LBoostsCounts = Constants.L_BOOST7;
-                    BBoostCounts = Constants.B_BOOST7;
+                    UpdateFields(Constants.POINTSL7, Constants.SPRITE_SPEED7, Constants.BAG_ADD_S7, Constants.BAG_UPDATE7, Constants.P_BOOST7, Constants.L_BOOST7, Constants.B_BOOST7);
                     break;
                 case 8:
-                    LevelPoints = Constants.POINTSL8;
-                    SpriteSpeed = Constants.SPRITE_SPEED8;
-                    BagelAddSpeed = Constants.BAG_ADD_S8;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE8;
-                    // boosts
-                    PBoostCounts = Constants.P_BOOST8;
-                    LBoostsCounts = Constants.L_BOOST8;
-                    BBoostCounts = Constants.B_BOOST8;
+                    UpdateFields(Constants.POINTSL8, Constants.SPRITE_SPEED8, Constants.BAG_ADD_S8, Constants.BAG_UPDATE5, Constants.P_BOOST8, Constants.L_BOOST8, Constants.B_BOOST8);
+
                     break;
                 case 9:
-                    LevelPoints = Constants.POINTSL9;
-                    SpriteSpeed = Constants.SPRITE_SPEED9;
-                    BagelAddSpeed = Constants.BAG_ADD_S9;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE9;
-                    // boosts 
-                    PBoostCounts = Constants.P_BOOST9;
-                    LBoostsCounts = Constants.L_BOOST9;
-                    BBoostCounts = Constants.B_BOOST9;
+                    UpdateFields(Constants.POINTSL9, Constants.SPRITE_SPEED9, Constants.BAG_ADD_S9, Constants.BAG_UPDATE9, Constants.P_BOOST9, Constants.L_BOOST9, Constants.B_BOOST9);
                     break;
                 case 10:
-                    LevelPoints = Constants.POINTSL10;
-                    SpriteSpeed = Constants.SPRITE_SPEED10;
-                    BagelAddSpeed = Constants.BAG_ADD_S10;
-                    SpriteUpdateSpeed = Constants.BAG_UPDATE10;
-                    // boosts
-                    PBoostCounts = Constants.P_BOOST10;
-                    LBoostsCounts = Constants.L_BOOST10;
-                    BBoostCounts = Constants.B_BOOST10;
+                    UpdateFields(Constants.POINTSL10, Constants.SPRITE_SPEED10, Constants.BAG_ADD_S10, Constants.BAG_UPDATE10, Constants.P_BOOST10, Constants.L_BOOST10, Constants.B_BOOST10);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Updates the fields wyhen a level changes
+        /// </summary>
+        /// <param name="LevelPoints"></param>
+        /// <param name="SpriteSpeed"></param>
+        /// <param name="BagelAddSpeed"></param>
+        /// <param name="SpriteUpdateSpeed"></param>
+        /// <param name="PBoostCounts"></param>
+        /// <param name="LBoostCounts"></param>
+        /// <param name="BBoostCount"></param>
+        public void UpdateFields(int LevelPoints, int SpriteSpeed, int BagelAddSpeed, int SpriteUpdateSpeed, int PBoostCounts, int LBoostCounts, int BBoostCount)
+        {
+            lock (AllBagels)
+                AllBagels.Clear();
+
+            lock (AllPBoosters)
+                AllPBoosters.Clear();
+
+            lock (AllLBoosters)
+                AllLBoosters.Clear();
+
+            lock (AllBBoosters)
+                AllBBoosters.Clear();
+
+            this.LevelPoints = LevelPoints;
+            this.SpriteSpeed = SpriteSpeed;
+            this.BagelAddSpeed = BagelAddSpeed;
+            this.SpriteUpdateSpeed = SpriteUpdateSpeed;
+            // boosts
+            this.PBoostCounts = PBoostCounts;
+            this.LBoostCounts = LBoostCounts;
+            this.BBoostCounts = BBoostCount;
+
+            PlayerSpeed = PlayerSpeed + 1;
+
         }
 
         /// <summary>
@@ -300,7 +294,18 @@ namespace CatchTheBagel
             lock (AllBagels)
             {
                 foreach (Bagel b in AllBagels.Values)
+                {
                     b.SetPointY(b.GetPointY() + SpriteSpeed); //TODO: do i need to put this in the game?
+
+                    if (CurrentLevel == 10)
+                    {
+                        if (b.GetPointX() % 2 == 0)
+                            b.SetPointX(b.GetPointX() + 1);
+                        else
+                            b.SetPointX(b.GetPointX() - 1);
+                    }
+
+                }
             }
         }
 
@@ -325,12 +330,14 @@ namespace CatchTheBagel
                     if (bagelY >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
+                        if(!CheckGameOver() && !GetWonGame())
                         SetLife(-1);
                     }
                     else if ((playerX - Constants.PLAYERSIZE <= bagelX && playerX + Constants.PLAYERSIZE >= bagelX) && bagelY + (Constants.PLAYERSIZE - 2) >= 690)
                     {
                         itemsToRemove.Add(b.GetID());
-                        ChangePoints(+LevelPoints);
+                        if (!CheckGameOver() && !GetWonGame())
+                            ChangePoints(+LevelPoints);
                         // helps with leveling up
                         BagelCount++;
                     }
@@ -416,11 +423,11 @@ namespace CatchTheBagel
         {
             int randX = rng.Next(Constants.MINX, Constants.MAXX);
 
-            if (CurrentLevel >= 4 && LBoostsCounts > 0 && CanBoost())
+            if (CurrentLevel >= 4 && LBoostCounts > 0 && CanBoost())
             {
                 AllLBoosters.Add(IDLBooster, new LifeBooster(IDLBooster, randX, 0));
                 this.IDLBooster++;
-                LBoostsCounts--;
+                LBoostCounts--;
             }
         }
 
@@ -604,15 +611,17 @@ namespace CatchTheBagel
             }
             else if (BagelCount >= 150)
             {
-                //TODO say you won or something, idk
+                CurrentLevel++;
+                BagelAddSpeed = 800;
+                WonGame = true;
             }
 
             //TO TEST
-            /* if (BagelCount >= 100)
-             {
-                 CurrentLevel = 4;
-                 ChangeLevel();
-             }*/
+            /*     if (BagelCount >= 135)
+                 {
+                     CurrentLevel = 9;
+                     ChangeLevel();
+                 }*/
         }
 
         /// <summary>
@@ -623,6 +632,7 @@ namespace CatchTheBagel
             if (LivesLeft <= 0)
             {
                 // TODO: clear all dictionaries
+                BagelAddSpeed = 800;
                 return true;
             }
 

@@ -18,6 +18,7 @@ namespace View
 
             this.CenterToScreen();
             this.comboBox_players.SelectedIndex = 0;
+            this.bagelType_comboBox.SelectedIndex = 1;
 
         }
 
@@ -62,9 +63,9 @@ namespace View
             //Ghostly Bagel = 1
             //Beary Pink = 2
             //Camper Duck = 3
-     
+
             //TODO:: See what player has been selected and draw that in the view
-            GameScreen view = new GameScreen(this.comboBox_players.SelectedIndex);
+            GameScreen view = new GameScreen(this.comboBox_players.SelectedIndex, this.bagelType_comboBox.SelectedIndex);
             view.Show();
             view.Focus();
         }
@@ -73,5 +74,7 @@ namespace View
         {
             this.Close();
         }
+
+   
     }
 }

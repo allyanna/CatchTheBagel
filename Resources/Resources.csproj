@@ -73,6 +73,7 @@
     <Content Include="README.txt" />
     <Content Include="Sprites\BadBooster.png" />
     <Content Include="Sprites\Bagel.png" />
+    <Content Include="Sprites\bart-donut.png" />
     <Content Include="Sprites\beary-pink.png" />
     <Content Include="Sprites\camper-duck-cap.png" />
     <Content Include="Sprites\camper-duck.png" />
@@ -80,7 +81,9 @@
     <Content Include="Sprites\LifeBooster.png" />
     <Content Include="Sprites\man-bagel.png" />
     <Content Include="Sprites\life-booster.png" />
+    <Content Include="Sprites\plain-bagel.png" />
     <Content Include="Sprites\point-booster.png" />
+    <Content Include="Sprites\sugar-donut.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
